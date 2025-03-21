@@ -2,7 +2,7 @@
 
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/YourLogo.png" alt="Logo de tu empresa" width="200">
+  <img src="https://avatars.githubusercontent.com/u/186534649?v=4" alt="Logo de tu empresa" width="200">
   <br>
   Sistema de Gestión de Cajas
   <br>
