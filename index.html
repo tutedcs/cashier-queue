@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Cajas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestión de Cajas</h1>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="control">Panel de Control</div>
+            <div class="tab" data-tab="display">Pantalla para Clientes</div>
+        </div>
+        
+        <div id="control" class="tab-content active">
+            <h2>Panel de Control de Cajeros</h2>
+            <div class="notification" id="notification">
+                Los cambios se mostrarán en la pantalla de clientes
+            </div>
+            <div class="cashier-controls">
+                <div class="cashier-control" data-cashier="1">
+                    <h3>Caja 1</h3>
+                    <p>
+                        <span class="status-indicator"></span>
+                        Estado: <span class="status-text">No disponible</span>
+                    </p>
+                    <button class="toggle-btn">Cambiar disponibilidad</button>
+                </div>
+                
+                <div class="cashier-control" data-cashier="2">
+                    <h3>Caja 2</h3>
+                    <p>
+                        <span class="status-indicator"></span>
+                        Estado: <span class="status-text">No disponible</span>
+                    </p>
+                    <button class="toggle-btn">Cambiar disponibilidad</button>
+                </div>
+                
+                <div class="cashier-control" data-cashier="3">
+                    <h3>Caja 3</h3>
+                    <p>
+                        <span class="status-indicator"></span>
+                        Estado: <span class="status-text">No disponible</span>
+                    </p>
+                    <button class="toggle-btn">Cambiar disponibilidad</button>
+                </div>
+                
+                <div class="cashier-control" data-cashier="4">
+                    <h3>Caja 4</h3>
+                    <p>
+                        <span class="status-indicator"></span>
+                        Estado: <span class="status-text">No disponible</span>
+                    </p>
+                    <button class="toggle-btn">Cambiar disponibilidad</button>
+                </div>
+            </div>
+            
+            <button class="screen-button" id="view-screen">Ver pantalla de clientes</button>
+        </div>
+        
+        <div id="display" class="tab-content">
+            <h2>Caja Disponible</h2>
+            <div class="available-boxes" id="available-boxes">
+                <!-- La caja disponible se mostrará aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
