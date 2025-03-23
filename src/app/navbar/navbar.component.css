@@ -1,0 +1,44 @@
+.navbar-container {
+    display: flex;
+    position: fixed;
+    top: 20px; 
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 0 15px; /* Add padding for smaller screens */
+}
+  
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Add this line to space out brand and links */
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #FF6700;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar-links {
+    display: flex; /* Add this line to ensure links are in a row */
+    gap: 15px; /* Add space between links */
+}
+
+.nav-link {
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+  
+.nav-link:hover {
+    background-color: #0e0e0e;
+    color: #fff;
+}
