@@ -42,6 +42,9 @@ testem.log
 .DS_Store
 Thumbs.db
 =======
+
+
+
 # Logs
 logs
 *.log
@@ -179,3 +182,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 >>>>>>> 05fcf7f9d2b8c5724e9b758765883687b5d73184
+
+# envs
+src/env

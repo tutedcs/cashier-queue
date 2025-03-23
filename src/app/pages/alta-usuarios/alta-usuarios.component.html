@@ -1,0 +1,62 @@
+<div class="col-12">
+    <div class="row">
+        <app-navbar></app-navbar>
+    </div>
+    <div class="row mt-2 align-items-center">
+        <div class="container">
+            <h6>Usuarios registrados</h6>
+            <div class="table-container">
+                <table class="styled-table">
+                <thead>
+                    <tr>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let usuario of usuarios">
+                    <td>
+                        <span><b>{{ usuario.apellido }}</b></span>
+                    </td>
+                    <td>
+                        <span><b>{{ usuario.nombre }}</b></span>
+                    </td>
+                    <td>
+                        <span><b>{{ usuario.usuario }}</b></span>
+                    </td>
+                    <td>
+                        <span><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : ''}}</b></span>
+                    </td>
+                    <td>
+                        <!-- <button *ngIf="!usuario.editing" class="btn btn-secondary" (click)="editUsuario(usuario)">Editar</button>
+                        <button *ngIf="usuario.editing" class="btn btn-success" (click)="saveUsuario(usuario)">Guardar</button>
+                        <button *ngIf="usuario.editing" class="btn btn-secondary" (click)="cancelUsuarioEdit(usuario)">Cancelar</button>
+                        <button *ngIf="!usuario.editing" class="btn btn-danger" (click)="deleteUsuario(usuario.idUsuario)">Eliminar</button> -->
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-floating">
+              <h6 class="text-center">Añadir Usuario:</h6>
+              <div class="d-flex">
+                <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre">
+                <input type="text" class="form-control" formControlName="apellido" placeholder="Apellido">
+                <input type="text" class="form-control" formControlName="usuario" placeholder="Usuario">
+                <input type="password" class="form-control" formControlName="password" placeholder="Contraseña">
+                <select formControlName="rol" class="form-select">
+                  <option value="1">Administrador</option>
+                  <option value="2">Usuario</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Habilitar</button>
+          </form>
+    </div>
+</div>

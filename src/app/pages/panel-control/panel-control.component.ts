@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../navbar/navbar.component';
-import { CajerosService } from '../../services/cajeros.service';
+import { CajasService } from '../../services/cajas.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-panel-control',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, CommonModule],
   templateUrl: './panel-control.component.html',
   styleUrl: './panel-control.component.css'
 })
@@ -13,10 +14,13 @@ export class PanelControlComponent {
 
   cajeros: any[] = [];
 
-  constructor(private cajeroSv: CajerosService) { }
+  constructor(private CajasSv: CajasService) { }
 
   ngOnInit() {
-    console.log(this.cajeros);
+    this.CajasSv.getCajas().subscribe((CajasResponse: any) => {
+      this.cajeros = CajasResponse.response;
+      console.log(this.cajeros);
+    });
   }
 
 

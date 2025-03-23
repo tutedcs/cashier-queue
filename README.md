@@ -34,8 +34,7 @@
   - Navegación simple entre vistas
 
 * **Implementación sencilla**
-  - Solución basada en tecnologías web estándar (HTML, CSS, JavaScript)
-  - No requiere bases de datos ni conexiones externas
+  - Solución basada en Angular 18 (HTML, CSS, TypeScript)
   - Funciona en cualquier navegador moderno
   - Fácil de desplegar en una red local
 
@@ -48,106 +47,151 @@
 ## Estructura del Proyecto
 
 ```
-sistema-gestion-cajas/
-├── index.html             # Estructura HTML principal
-├── styles.css             # Estilos y diseño visual
-├── script.js              # Lógica y funcionalidad
-└── README.md              # Documentación del proyecto
+cashier-queue/
+├── .editorconfig
+├── .gitignore
+├── angular.json
+├── package.json
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.spec.json
+├── .angular/
+│   └── cache/
+├── .vscode/
+│   ├── extensions.json
+│   ├── launch.json
+│   └── tasks.json
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── index.html
+│   ├── main.ts
+│   ├── styles.css
+│   ├── app/
+│   │   ├── app.component.css
+│   │   ├── app.component.html
+│   │   ├── app.component.spec.ts
+│   │   ├── app.component.ts
+│   │   ├── app.config.ts
+│   │   ├── app.routes.ts
+│   │   ├── login/
+│   │   │   ├── login.component.css
+│   │   │   ├── login.component.html
+│   │   │   └── login.component.ts
+│   │   ├── models/
+│   │   │   └── login.model.ts
+│   │   ├── navbar/
+│   │   │   ├── navbar.component.css
+│   │   │   ├── navbar.component.html
+│   │   │   └── navbar.component.ts
+│   │   ├── pages/
+│   │   │   ├── alta-usuarios/
+│   │   │   │   ├── alta-usuarios.component.css
+│   │   │   │   ├── alta-usuarios.component.html
+│   │   │   │   └── alta-usuarios.component.ts
+│   │   │   ├── clients-side/
+│   │   │   │   ├── clients-side.component.css
+│   │   │   │   ├── clients-side.component.html
+│   │   │   │   └── clients-side.component.ts
+│   │   │   ├── mainmenu/
+│   │   │   │   ├── mainmenu.component.css
+│   │   │   │   ├── mainmenu.component.html
+│   │   │   │   └── mainmenu.component.ts
+│   │   │   ├── panel-control/
+│   │   │   │   ├── panel-control.component.css
+│   │   │   │   ├── panel-control.component.html
+│   │   │   │   └── panel-control.component.ts
+│   │   ├── services/
+│   │   │   ├── cajas.service.ts
+│   │   │   ├── login.service.ts
+│   │   │   └── usuarios.service.ts
+│   └── env/
+│       └── environment.ts
 ```
 
 ## Instalación
 
 ### Requisitos:
 
-- Cualquier navegador web moderno
-- Servidor web local (opcional para pruebas)
+- Node.js y npm instalados
 
 ```bash
-# Clonar el repositorio o descargar los archivos
-$ git clone https://tu-repositorio/sistema-gestion-cajas.git
-$ cd sistema-gestion-cajas
+# Clonar el repositorio
+$ git clone https://tu-repositorio/cashier-queue.git
+$ cd cashier-queue
 
-# O simplemente crea una carpeta y coloca los archivos
-$ mkdir sistema-gestion-cajas
-$ cd sistema-gestion-cajas
-# Coloca index.html, styles.css y script.js en esta carpeta
+# Instalar dependencias
+$ npm install
+```
+
+### Dependencias:
+
+Este proyecto utiliza las siguientes dependencias:
+
+- Angular 18
+- SweetAlert
+- Bootstrap
+
+Para instalar estas dependencias, asegúrate de que estén listadas en tu `package.json` y ejecuta `npm install`:
+
+```json
+{
+  "dependencies": {
+    "@angular/core": "^18.0.0",
+    "sweetalert2": "^11.0.0",
+    "bootstrap": "^5.0.0"
+  }
+}
 ```
 
 ## Uso
 
-### Ejecución local simple:
+### Ejecución en desarrollo:
 
 ```bash
-# Simplemente abre el archivo index.html en un navegador
-$ open index.html    # En macOS
-$ xdg-open index.html    # En Linux
-# O doble clic en el archivo index.html en Windows
+# Iniciar la aplicación en modo desarrollo
+$ npm start
 ```
 
-### Ejecución con servidor local:
-
-#### Usando Python:
+### Ejecución de pruebas:
 
 ```bash
-# Con Python 3
-$ python -m http.server 8000
-
-# Con Python 2
-$ python -m SimpleHTTPServer 8000
+# Ejecutar pruebas unitarias
+$ npm test
 ```
 
-#### Usando Node.js:
+### Construcción para producción:
 
 ```bash
-# Instalar servidor http simple
-$ npm install -g http-server
-
-# Iniciar servidor
-$ http-server
+# Construir la aplicación para producción
+$ npm run build
 ```
-
-### Acceso desde otros dispositivos:
-
-Para probar la función de "panel de cajero" y "pantalla de clientes" en diferentes dispositivos:
-
-1. Averigua la dirección IP de tu computadora (usando `ipconfig` en Windows o `ifconfig` en Mac/Linux)
-2. En otro dispositivo conectado a la misma red, visita `http://[TU_IP]:8000`
 
 ## Configuración
 
 ### Personalización de la interfaz:
 
-Para personalizar la apariencia, puedes modificar el archivo `styles.css`:
+Para personalizar la apariencia, puedes modificar el archivo `src/styles.css`:
 
 ```css
 /* Cambiar colores principales */
-header {
-    background-color: #YOUR_COLOR_HERE;  /* Color del encabezado */
-}
-
-.toggle-btn {
-    background-color: #YOUR_COLOR_HERE;  /* Color de los botones */
-}
-
-/* Personalizar la apariencia de las cajas */
-.box.available {
-    background-color: #YOUR_COLOR_HERE;  /* Color de la caja disponible */
+body {
+    background-color: #YOUR_COLOR_HERE;  /* Color de fondo */
 }
 ```
 
 ### Modificación del número de cajas:
 
-Para cambiar el número de cajas disponibles, edita el archivo `index.html` y añade o elimina elementos de caja, y actualiza el objeto `cashiers` en `script.js`:
+Para cambiar el número de cajas disponibles, edita el archivo `src/app/pages/panel-control/panel-control.component.ts` y actualiza el array `cajeros`:
 
-```javascript
-// En script.js
-const cashiers = {
-    1: { available: false },
-    2: { available: false },
-    3: { available: false },
-    4: { available: false },
-    5: { available: false },  // Añade más cajas según sea necesario
-};
+```typescript
+// En panel-control.component.ts
+cajeros: any[] = [
+  { idCaja: 1, idCajero: 1, disponibilidad: true },
+  { idCaja: 2, idCajero: 2, disponibilidad: false },
+  // Añade más cajas según sea necesario
+];
 ```
 
 ## Solución de Problemas
@@ -162,7 +206,7 @@ Esta aplicación está diseñada para navegadores modernos. Recomendamos utiliza
 
 ### Problemas de visualización en dispositivos móviles
 
-Si experimentas problemas de visualización en dispositivos móviles, verifica que la meta etiqueta de viewport esté correctamente configurada en el archivo `index.html`:
+Si experimentas problemas de visualización en dispositivos móviles, verifica que la meta etiqueta de viewport esté correctamente configurada en el archivo `src/index.html`:
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

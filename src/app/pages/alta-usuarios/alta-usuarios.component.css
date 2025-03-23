@@ -1,0 +1,69 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centra verticalmente */
+    margin: 0 auto; /* Centra horizontalmente */
+    padding: 20px;
+    margin-top: 5%;
+    max-height: 80vh; /* Ajusta el alto máximo */
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.table-container {
+    width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
+    max-width: 800px; /* Ajusta el ancho máximo de la tabla */
+    margin: 20px auto; /* Centra horizontalmente y añade separación */
+    padding: 0 20px;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+}
+
+.styled-table {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse; 
+    border: 1px solid black;
+}
+
+.styled-table th,
+.styled-table td {
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.styled-table th {
+    background-color: #ffa733; /* Fondo claro para los encabezados */
+}
+
+form {
+    margin-left: 32%;
+    margin-top: 20px;
+    width: 90%;
+    max-width: 800px; /* Ajusta el ancho máximo del formulario */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente los inputs */
+  }
+  
+  .form-floating {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre los elementos del formulario */
+    width: 100%; /* Ocupa todo el ancho disponible */
+  }
+  
+  .form-floating .d-flex {
+    gap: 10px; /* Espacio entre los inputs */
+    justify-content: center; /* Centra los inputs dentro del formulario */
+  }
+  
+  .form-floating input, 
+  .form-floating select {
+    flex: 1;
+    max-width: 300px; /* Ancho máximo de los inputs */
+  }
+  
+  button[type="submit"] {
+    margin-top: 10px;
+  }
