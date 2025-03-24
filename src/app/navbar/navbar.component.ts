@@ -11,7 +11,17 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
+  rolUser: number = 0;
+
   constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    const session = sessionStorage.getItem('session')
+    if (session) {
+      this.rolUser = JSON.parse(session).rol;
+      console.log(this.rolUser);
+    }
+  }
 
   navigate(path: string) {
     this.router.navigate([path]);

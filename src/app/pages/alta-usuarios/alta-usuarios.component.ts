@@ -35,12 +35,16 @@ export class AltaUsuariosComponent {
 
   ngOnInit() {
     this.getUsuarios();
+
+    // Validar que el usuario no exista
+    this.form.get('usuario')?.valueChanges.subscribe((value) => {
+      this.checkExistingUser(value);
+    });
   }
 
   getUsuarios() {
     this.usuarioSv.getUsuarios().subscribe((data: any) => {
       this.usuarios = data;
-      console.log(this.usuarios);
     });
   }
 
@@ -57,6 +61,7 @@ export class AltaUsuariosComponent {
             timerProgressBar: true
           }).then((result) => {
             this.getUsuarios();
+            this.form.reset();
           });
         } else {
           Swal.fire({
@@ -72,8 +77,7 @@ export class AltaUsuariosComponent {
     } else {
       Swal.fire({
         icon: 'error',
-        title: 'Campos requeridos',
-        text: 'Por favor, rellene todos los campos',
+        title: 'Por favor, rellene todos los campos',
         timer: 3000,
         showConfirmButton: false,
         timerProgressBar: true,
@@ -132,6 +136,46 @@ export class AltaUsuariosComponent {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  checkExistingUser(usuario: string) {
+    this.usuarioSv.searchUsuario(usuario).subscribe((data: any) => {
+      if (data.code==='200' && data.coincidencia.length>0) {
+        if (data.coincidencia[0].activo === true) {
+          Swal.fire({
+            icon: 'warning',  
+            title: 'Usuario ya existente',
+            text: 'El usuario ya existe en el sistema',
+            showConfirmButton: false,
+          });
+          this.form.get('usuario')?.setValue('');
+        } else {
+            Swal.fire({
+            icon: 'warning',  
+            title: 'Usuario desactivado',
+            text: `Coincidencia: ${data.coincidencia[0].nombre} ${data.coincidencia[0].apellido}. El usuario ya existe en el sistema pero está dado de baja, ¿desea darlo de alta?`,
+            showConfirmButton: true,
+            showCancelButton: true,
+            }).then((result) => {
+            if (result.isConfirmed) {
+             this.usuarioSv.activarUsuario(data.coincidencia[0].idUsuario).subscribe((activarUsuario: any) => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Usuario activado',
+                text: 'El usuario se ha activado correctamente',
+                timer: 2000,
+                showConfirmButton: false,
+                timerProgressBar: true
+              }).then((result) => {
+                this.getUsuarios();
+              });
+             }); 
+            }
+            });
+        }
+      }
+    });
+
   }
 
 }
