@@ -3,6 +3,45 @@
         <app-navbar></app-navbar>
     </div>
     <div class="row mt-2 align-items-center">
-        
+    
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Cajas Disponibles</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Estado</th>
+                                    <th>Último uso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let caja of cajasDisponibles">
+                                    <td></td>
+                                    <td></td>
+                                    <td><span class="badge bg-success"> Disponible </span></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Caja Principal</td>
+                                    <td>
+                                        <span class="badge bg-sucess"> Disponible </span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

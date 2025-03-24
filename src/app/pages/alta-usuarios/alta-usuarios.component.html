@@ -7,56 +7,64 @@
             <h6>Usuarios registrados</h6>
             <div class="table-container">
                 <table class="styled-table">
-                <thead>
-                    <tr>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Rol</th>
-                    <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let usuario of usuarios">
-                    <td>
-                        <span><b>{{ usuario.apellido }}</b></span>
-                    </td>
-                    <td>
-                        <span><b>{{ usuario.nombre }}</b></span>
-                    </td>
-                    <td>
-                        <span><b>{{ usuario.usuario }}</b></span>
-                    </td>
-                    <td>
-                        <span><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : ''}}</b></span>
-                    </td>
-                    <td>
-                        <!-- <button *ngIf="!usuario.editing" class="btn btn-secondary" (click)="editUsuario(usuario)">Editar</button>
-                        <button *ngIf="usuario.editing" class="btn btn-success" (click)="saveUsuario(usuario)">Guardar</button>
-                        <button *ngIf="usuario.editing" class="btn btn-secondary" (click)="cancelUsuarioEdit(usuario)">Cancelar</button>
-                        <button *ngIf="!usuario.editing" class="btn btn-danger" (click)="deleteUsuario(usuario.idUsuario)">Eliminar</button> -->
-                    </td>
-                    </tr>
-                </tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of usuarios">
+                            <td><span><b>{{ usuario.apellido }}</b></span></td>
+                            <td><span><b>{{ usuario.nombre }}</b></span></td>
+                            <td><span><b>{{ usuario.usuario }}</b></span></td>
+                            <td><span><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : ''}}</b></span></td>
+                            <td>
+                                <button class="btn btn-danger" (click)="desactivarUsuario(usuario.idUsuario)"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-        </div>
 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-floating">
-              <h6 class="text-center">Añadir Usuario:</h6>
-              <div class="d-flex">
-                <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre">
-                <input type="text" class="form-control" formControlName="apellido" placeholder="Apellido">
-                <input type="text" class="form-control" formControlName="usuario" placeholder="Usuario">
-                <input type="password" class="form-control" formControlName="password" placeholder="Contraseña">
-                <select formControlName="rol" class="form-select">
-                  <option value="1">Administrador</option>
-                  <option value="2">Usuario</option>
-                </select>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Habilitar</button>
-          </form>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <h6 class="text-center">Añadir Usuario:</h6>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" formControlName="apellido" placeholder="Apellido">
+                    </div>
+                </div>
+                <div class="row g-2 mt-2">
+                    <div class="col-6">
+                        <input type="text" class="form-control" formControlName="usuario" placeholder="Usuario">
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Contraseña">
+                            <button type="button" class="btn btn-outline-light bg-dark" (click)="togglePasswordVisibility()">
+                                <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-12">
+                        <select formControlName="rol" class="form-select">
+                            <option value="1">Administrador</option>
+                            <option value="2">Usuario</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Habilitar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
