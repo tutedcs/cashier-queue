@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavbarComponent } from '../../navbar/navbar.component';
+import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { UsuariosService } from '../../services/usuarios.service';

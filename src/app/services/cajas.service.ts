@@ -16,4 +16,10 @@ export class CajasService {
     getCajas(): Observable<any> {
         return this.http.get(this.API_URL + 'GetCajas');
     }
+
+    getCajasInactivas(): Observable<any> {
+        return this.http.get(this.API_URL + 'GetCajasNoLogeadas');
+    }
+
+    
 }

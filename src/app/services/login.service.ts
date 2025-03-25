@@ -10,17 +10,17 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
     
-    API_URL = Environment.apiUrl + 'Auth/';
+    API_URL = Environment.apiUrl + 'Usuario/';
     
     constructor(private http: HttpClient, private router: Router) { }
 
     // Login
     login(UserLogin: userLogin): Observable<any> {
-        return this.http.post(this.API_URL + 'login', UserLogin);
+        return this.http.post(this.API_URL + 'Login', UserLogin);
     }
 
     register (userRegister: userRegister): Observable<any> {
-        return this.http.post(this.API_URL + 'register', userRegister);
+        return this.http.post(this.API_URL + 'Register', userRegister);
     }
 
     checkLogin(): void {

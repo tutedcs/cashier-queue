@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import Swal from 'sweetalert2';
+import { CajasService } from '../services/cajas.service';
+import { UsuariosService } from '../services/usuarios.service';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +18,11 @@ export class LoginComponent {
   password: string = '';
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private loginSv: LoginService) {
+  constructor(private fb: FormBuilder, private router: Router, 
+              private loginSv: LoginService, private cajasSv: CajasService,
+              private usuariosSv: UsuariosService) {
     this.form = this.fb.group({
-      usuario: ['', Validators.required],
-      password: ['', Validators.required]
+      usuario: ['', Validators.required]
     });
   }
 
@@ -30,27 +33,104 @@ export class LoginComponent {
     if (this.form.valid) {
       const userLogin = {
         usuario: this.form.value.usuario,
-        password: this.form.value.password
       }
-      this.loginSv.login(userLogin).subscribe((data: any) => {
-        console.log('Login response:', data); // Add logging to check the response
-        if (data.code == 'LOGIN_SUCCESS') {
-          // localStorage.setItem('idUsuario', data.token);
-          sessionStorage.setItem('session', JSON.stringify({
-            idUsuario: data.idUsuario,
-            nombre: data.nombre,
-            apellido: data.apellido,
-            rol: data.rol,
-          }));        
+      this.loginSv.login(userLogin).subscribe((dataLogin: any) => {
+        if (dataLogin.code == '200') {
+          const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: "btn btn-primary mr-2",
+              denyButton: "btn btn-primary mr-2",
+              cancelButton: "btn btn-primary mr-2"
+            },
+            buttonsStyling: true
+          });
 
+          if (dataLogin.usuario.rol === 1) {
+
+          } else {
+            swalWithBootstrapButtons.fire({
+              icon: 'success',
+              showConfirmButton: true,
+              title: 'Bienvenido, ' + dataLogin.usuario.nombre + ' ' + dataLogin.usuario.apellido,
+              text: 'Estas logueando en la Caja N° ' + dataLogin.usuario.caja + ', Correcto?',
+              showCancelButton: true,
+              allowEscapeKey: false,
+              allowOutsideClick: false,
+              confirmButtonText: 'Si',
+              cancelButtonText: 'No',
+            }).then((result) => {
+              if (result.isConfirmed) { // Esta logueando en la caja correcta
+                // this.router.navigate(['/mainmenu']);
+              } else { // No esta logueando en la caja correcta
+                this.cajasSv.getCajasInactivas().subscribe((dataCajas: any) => {
+                  console.log('dataCajas:' ,dataCajas);
+                  const cajas = dataCajas.response;
+                  Swal.fire({
+                    title: 'Seleccione el número de caja',  
+                    input: 'select',
+                    inputOptions: cajas.reduce((options: any, caja: any) => {
+                    options[caja.idCaja] = `Caja N° ${caja.idCaja}`;
+                    return options;
+                    }, {}),
+                    inputPlaceholder: 'Seleccione una caja',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar',
+                  }).then((result) => {
+                    if (result.isConfirmed && result.value) {
+                    const selectedCaja = result.value;
+                    this.usuariosSv.setCaja(dataLogin.idUsuario, selectedCaja).subscribe((dataSetCaja: any) => {
+                      console.log('dataSetCaja:' ,dataSetCaja);
+                      if (dataSetCaja.code == '200') {
+                        Swal.fire({
+                          icon: 'success',
+                          title: `Has seleccionado la Caja N° ${selectedCaja}`,
+                          text: 'Iniciando sesion',
+                          showConfirmButton: true,
+                          confirmButtonText: 'Continuar',
+                          allowEscapeKey: false,
+                          allowOutsideClick: true,
+                          timer: 3000,
+                          timerProgressBar: true
+                        }).then(() => {
+                          // this.router.navigate(['/mainmenu']);
+                          sessionStorage.setItem('session', JSON.stringify({
+                            idUsuario: dataLogin.idUsuario,
+                            nombre: dataLogin.nombre,
+                            apellido: dataLogin.apellido,
+                            rol: dataLogin.rol,
+                          }));  
+                        });
+                      } else {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Ha ocurrido un error, intente de nuevo'
+                        });
+                      }
+                    });
+                    } else {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Por favor, seleccione una caja válida'
+                    });
+                    }
+                  });
+                });
+              }
+              // this.router.navigate(['/mainmenu']);
+            });
+          }
+
+          
+        } else if (dataLogin.code == '401') {  
           Swal.fire({
-            icon: 'success',
-            timer: 5000,
-            showConfirmButton: false,
-            title: 'Bienvenido ' + data.nombre + ' ' + data.apellido,
-            timerProgressBar: true
-          }).then(() => {
-            this.router.navigate(['/mainmenu']);
+            icon: 'error',
+            title: 'Usuario no existente',
+            text: 'Por favor, verifique los datos ingresados',
+            timer: 3000,
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false
           });
         }
       }, (error) => {
@@ -63,6 +143,15 @@ export class LoginComponent {
           showConfirmButton: false,
           title: 'Ha ocurrido un error, intente de nuevo'
         });
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Por favor, ingrese los datos requeridos',
+        timer: 3000,
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false
       });
     }
   }

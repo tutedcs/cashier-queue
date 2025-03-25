@@ -23,8 +23,13 @@ export class UsuariosService {
           .set('usuario', usuario)
     
         return this.http.get(this.API_URL + 'BuscarUsuario', { params });
-      }
+    }
 
+    setCaja(idUsuario: number, idCaja: number): Observable<any> {
+        const body = { idUsuario, idCaja };  // Enviar el objeto en el body
+        return this.http.put(this.API_URL + 'SetCaja', body);
+    }
+    
     desactivarUsuario(idUsuario: number): Observable<any> {
         return this.http.put(this.API_URL + 'Desactivar/' + idUsuario, {});
     }
