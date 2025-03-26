@@ -29,6 +29,16 @@ export class LoginComponent {
   ngOnInit(): void {
   }
 
+  saveSessionStorage(dataLogin: any){
+    sessionStorage.setItem('session', JSON.stringify({
+      idUsuario: dataLogin.usuario.idUsuario,
+      nombre: dataLogin.usuario.nombre,
+      apellido: dataLogin.usuario.apellido,
+      rol: dataLogin.usuario.rol,
+    }));  
+
+  }
+
   onSubmit(): void {    
     if (this.form.valid) {
       const userLogin = {
@@ -36,6 +46,7 @@ export class LoginComponent {
       }
       this.loginSv.login(userLogin).subscribe((dataLogin: any) => {
         if (dataLogin.code == '200') {
+          console.log('dataLogin:', dataLogin);
           const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
               confirmButton: "btn btn-primary mr-2",
@@ -46,7 +57,17 @@ export class LoginComponent {
           });
 
           if (dataLogin.usuario.rol === 1) {
-
+            Swal.fire({
+              icon: 'success',
+              title: 'Sesión iniciada',
+              text: 'Bienvenido, ' + dataLogin.usuario.nombre + ' ' + dataLogin.usuario.apellido,
+              timer: 2000,
+              showConfirmButton: false,
+              timerProgressBar: true
+            }).then((result) => {
+              this.saveSessionStorage(dataLogin);
+              this.router.navigate(['/mainmenu']);
+            });
           } else {
             swalWithBootstrapButtons.fire({
               icon: 'success',
@@ -60,7 +81,17 @@ export class LoginComponent {
               cancelButtonText: 'No',
             }).then((result) => {
               if (result.isConfirmed) { // Esta logueando en la caja correcta
-                // this.router.navigate(['/mainmenu']);
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Sesión iniciada',
+                  text: 'Redirigiendo...',
+                  timer: 2000,
+                  showConfirmButton: false,
+                  timerProgressBar: true
+                }).then((result) => {
+                  this.saveSessionStorage(dataLogin); 
+                  this.router.navigate(['/mainmenu']);
+                });                
               } else { // No esta logueando en la caja correcta
                 this.cajasSv.getCajasInactivas().subscribe((dataCajas: any) => {
                   console.log('dataCajas:' ,dataCajas);
@@ -93,13 +124,8 @@ export class LoginComponent {
                           timer: 3000,
                           timerProgressBar: true
                         }).then(() => {
-                          // this.router.navigate(['/mainmenu']);
-                          sessionStorage.setItem('session', JSON.stringify({
-                            idUsuario: dataLogin.idUsuario,
-                            nombre: dataLogin.nombre,
-                            apellido: dataLogin.apellido,
-                            rol: dataLogin.rol,
-                          }));  
+                          this.saveSessionStorage(dataLogin); 
+                          this.router.navigate(['/mainmenu']);
                         });
                       } else {
                         Swal.fire({
