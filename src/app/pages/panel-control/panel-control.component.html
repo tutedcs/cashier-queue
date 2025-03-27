@@ -10,8 +10,8 @@
             <div class="col-9">
                 <div *ngFor="let item of cajeros" class="card col-3 m-2">
                     <div class="card-body">
-                        <h5 class="card-title">Caja N°: {{ item.idCaja }}</h5>
-                        <p class="card-text">ID Cajero: {{ item.idCajero }}</p>
+                        <h5 class="card-title">Caja N°: {{ item.nCaja }}</h5>
+                        <p class="card-text">Seccion: {{ item.seccion }}</p>
                         <span class="badge" [ngClass]="{'bg-success': item.disponibilidad, 'bg-danger': !item.disponibilidad}">
                             {{ item.disponibilidad ? 'Disponible' : 'No Disponible' }}
                         </span>

@@ -57,7 +57,7 @@ export class LoginComponent {
           });
 
           if (dataLogin.usuario.rol === 1) {
-            Swal.fire({
+            swalWithBootstrapButtons.fire({
               icon: 'success',
               title: 'Sesión iniciada',
               text: 'Bienvenido, ' + dataLogin.usuario.nombre + ' ' + dataLogin.usuario.apellido,
@@ -96,7 +96,7 @@ export class LoginComponent {
                 this.cajasSv.getCajasInactivas().subscribe((dataCajas: any) => {
                   console.log('dataCajas:' ,dataCajas);
                   const cajas = dataCajas.response;
-                  Swal.fire({
+                  swalWithBootstrapButtons.fire({
                     title: 'Seleccione el número de caja',  
                     input: 'select',
                     inputOptions: cajas.reduce((options: any, caja: any) => {
@@ -143,7 +143,6 @@ export class LoginComponent {
                   });
                 });
               }
-              // this.router.navigate(['/mainmenu']);
             });
           }
 

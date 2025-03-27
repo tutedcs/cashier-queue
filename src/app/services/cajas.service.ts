@@ -21,5 +21,9 @@ export class CajasService {
         return this.http.get(this.API_URL + 'GetCajasNoLogeadas');
     }
 
+    GetCajasXSeccion(idSeccion: number): Observable<any> {
+        return this.http.get(this.API_URL + 'GetCajasXSeccion/' + idSeccion);
+    }
+
     
 }

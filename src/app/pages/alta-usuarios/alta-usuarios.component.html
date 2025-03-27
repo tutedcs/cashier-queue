@@ -7,23 +7,40 @@
             <h6>Usuarios registrados</h6>
             <div class="table-container">
                 <table class="styled-table">
+                    <caption>
+                        <div class="caption-container">
+                            <pagination-controls
+                            *ngIf="usuarios.length > 5"
+                            (pageChange)="currentPageTotal = $event"
+                            [maxSize]="5"
+                            [directionLinks]="false"
+                            [autoHide]="true"
+                            style="float: right;"
+                            ></pagination-controls>
+                        </div>
+                    </caption>
+                    
                     <thead>
                         <tr>
                             <th scope="col">Apellido</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Usuario</th>
+                            <th scope="col">N° Legajo</th>
+                            <th scope="col">Caja</th>
+                            <th scope="col">Seccion</th>
                             <th scope="col">Rol</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Accion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let usuario of usuarios">
+                        <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 5, currentPage: currentPageTotal  }">
                             <td><span><b>{{ usuario.apellido }}</b></span></td>
                             <td><span><b>{{ usuario.nombre }}</b></span></td>
                             <td><span><b>{{ usuario.usuario }}</b></span></td>
+                            <td><span><b>{{ usuario.caja === 0 ? 'No tiene' : usuario.caja }}</b></span></td>
+                            <td><span><b>{{ usuario.seccion === 0 ? 'No tiene' : usuario.seccion }}</b></span></td>
                             <td><span><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : ''}}</b></span></td>
                             <td>
-                                <button class="btn btn-danger" (click)="desactivarUsuario(usuario.idUsuario)"><i class="bi bi-trash"></i></button>
+                                <button *ngIf="usuario.rol!==1" class="btn btn-warning" (click)="cambiarCajaUsuario(usuario.idUsuario)"><i class="bi bi-pencil"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -41,23 +58,39 @@
                     </div>
                 </div>
                 <div class="row g-2 mt-2">
-                    <div class="col-6">
-                        <input type="text" class="form-control" formControlName="usuario" placeholder="Usuario">
-                    </div>
-                    <div class="col-6">
-                        <div class="input-group">
-                            <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Contraseña">
-                            <button type="button" class="btn btn-outline-light bg-dark" (click)="togglePasswordVisibility()">
-                                <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
-                            </button>
-                        </div>
+                    <div class="col-12">
+                        <input type="text" class="form-control" formControlName="usuario" placeholder="Legajo">
                     </div>
                 </div>
                 <div class="row justify-content-center mt-3">
                     <div class="col-12">
+                        <h5>Seleccione el rol:</h5>
                         <select formControlName="rol" class="form-select">
                             <option value="1">Administrador</option>
                             <option value="2">Usuario</option>
+                        </select>
+                    </div>
+                    <div *ngIf="selectCaja===true" class="col-12 mt-2">
+                        <h5>Seleccione la seccion:</h5>
+                        <select
+                        class="form-select"
+                        formControlName="seccion"
+                        style="width: 100%; max-width: 400px; margin: 0 auto;"
+                        >
+                            <option *ngFor="let seccion of secciones" [value]="seccion.idSeccion">
+                            {{ seccion.nSeccion }}
+                            </option>
+                        </select>
+
+                        <h5>Seleccione la caja:</h5>
+                        <select
+                        class="form-select"
+                        formControlName="caja"
+                        style="width: 100%; max-width: 400px; margin: 0 auto;"
+                        >
+                            <option *ngFor="let caja of cajas" [value]="caja.idCaja">
+                            {{ caja.nCaja }}
+                            </option>
                         </select>
                     </div>
                 </div>
