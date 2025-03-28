@@ -1,68 +1,73 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Centra verticalmente */
-    margin: 0 auto; /* Centra horizontalmente */
-    padding: 20px;
-    margin-top: 5%;
-    max-height: 80vh; /* Ajusta el alto máximo */
-    overflow-y: hidden;
-    overflow-x: hidden;
+.content-container {
+  display: flex;
+  justify-content: space-between; /* Espacio entre la tabla y el formulario */
+  align-items: flex-start; /* Alinea ambos elementos al inicio vertical */
+  padding: 20px;
+  gap: 20px; /* Espacio entre la tabla y el formulario */
+  height: auto; /* Ajusta la altura automáticamente */
 }
 
+/* Tabla */
 .table-container {
-    width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
-    max-width: 800px; /* Ajusta el ancho máximo de la tabla */
-    margin: 20px auto; /* Centra horizontalmente y añade separación */
-    padding: 0 20px;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+  margin: 3%;
+  flex: 1; /* Ocupa el espacio disponible */
+  max-width: 60%; /* Limita el ancho máximo de la tabla */
+  margin-right: 20px; /* Espacio a la derecha */
+  display: flex;
+  flex-direction: column; /* Asegura que el contenido interno esté alineado verticalmente */
 }
 
 .styled-table {
-    text-align: center;
-    width: 100%;
-    border-collapse: collapse; 
-    border: 1px solid black;
+  margin-top: 1%;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black;
 }
 
 .styled-table th,
 .styled-table td {
-    border: 1px solid black;
-    padding: 12px;
+  border: 1px solid black;
+  padding: 12px;
 }
 
 .styled-table th {
-    background-color: #ffa733; /* Fondo claro para los encabezados */
+  background-color: #ffa733;
 }
 
-form {
-    margin-top: 20px;
-    width: 90%;
-    max-width: 800px; /* Ajusta el ancho máximo del formulario */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra horizontalmente los inputs */
-  }
-  
-  .form-floating {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Espacio entre los elementos del formulario */
-    width: 100%; /* Ocupa todo el ancho disponible */
-  }
-  
-  .form-floating .d-flex {
-    gap: 10px; /* Espacio entre los inputs */
-    justify-content: center; /* Centra los inputs dentro del formulario */
-  }
-  
-  .form-floating input, 
-  .form-floating select {
-    flex: 1;
-    max-width: 300px; /* Ancho máximo de los inputs */
-  }
-  
-  button[type="submit"] {
-    margin-top: 10px;
-  }
+/* Formulario */
+.form-container {
+  margin: 5%;
+  flex: 1; /* Ocupa el espacio disponible */
+  max-width: 35%; /* Limita el ancho máximo del formulario */
+  margin-left: 20px; /* Espacio a la izquierda */
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre los elementos del formulario */
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+

@@ -14,8 +14,13 @@ export class UsuariosService {
     constructor(private http: HttpClient) { }
 
 
-    getUsuarios(): Observable<any> {
-        return this.http.get(this.API_URL + 'Listar');
+    getUsuarios(idSeccion?: number): Observable<any> {
+        const params = idSeccion ? new HttpParams().set('idSeccion', idSeccion.toString()) : undefined;
+        return this.http.get(this.API_URL + 'Listar', { params });
+    }
+
+    getUsuarioXid(idUsuario: number): Observable<any> {
+        return this.http.get(this.API_URL + 'BuscarPorId/' + idUsuario);
     }
 
     searchUsuario(usuario: string): Observable<any> {

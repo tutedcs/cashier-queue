@@ -20,6 +20,7 @@ import { CajasService } from '../../services/cajas.service';
 })
 export class AltaUsuariosComponent {
   form: FormGroup;
+  formSearch: FormGroup;
   usuarios: any[] = [];
   cajas: any[] = [];
   secciones: any[] = [];
@@ -29,7 +30,7 @@ export class AltaUsuariosComponent {
    // ---- Variables para la paginación ----
    currentPageTotal = 1;
    currentPage = 1;
- 
+
 
   // public showPassword: boolean = false;
 
@@ -43,7 +44,10 @@ export class AltaUsuariosComponent {
       usuario: ['', Validators.required],
       rol: ['', Validators.required],
       seccion: [''],
-      caja: ['', Validators.required]
+      caja: ['', Validators.required],
+    });
+    this.formSearch = this.fb.group({
+      search: [''],
     });
   }
 
@@ -62,6 +66,14 @@ export class AltaUsuariosComponent {
     this.form.get('usuario')?.valueChanges.subscribe((value) => {
       this.checkExistingUser(value);
     });
+
+    this.formSearch.get('search')?.valueChanges.subscribe((value) => {
+      this.usuarioSv.getUsuarios(value).subscribe((data: any) => {
+        this.usuarios = data;
+      });
+    });
+
+
 
     this.form.get('seccion')?.valueChanges.subscribe((value) => {
       console.log(value);
