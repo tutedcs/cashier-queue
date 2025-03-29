@@ -18,53 +18,27 @@
             <div class="div2">
                 <div class="card">
                     <div class="card-header text-black" style="background-color: #f99c24;">
-                        <h1 class="mb-0">Dispo</h1>
+                        <h1 class="mb-0">Disponibilidad</h1>
+                        <span *ngIf="this.disponibilidad===true">
+                            <span class="badge bg-success" style="font-size: 20px; padding: 0.5rem 1rem;">ESTAS DISPONIBLE</span>
+                        </span>
+                        <span *ngIf="this.disponibilidad!==true">
+                            <span class="badge bg-danger" style="font-size: 20px; padding: 0.5rem 1rem;">ESTAS OCUPADO</span>
+                        </span>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6"></div>
-                            <div class="col-6"></div>
+                            <div class="col-12">
+                                <h5>Tiempo ocupado:</h5>
+                                <span class="badge bg-danger" style="font-size: 20px; padding: 0.5rem 1rem;">{{timerNoDisponible}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="div3">
-                3
+                <button type="button" (click)="switchDisponibilidad()" class="btn btn-info">Cambiar Disponibilidad</button>
             </div>
         </div>
     </div>
-    <!-- <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Cajas Disponibles</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Estado</th>
-                                    <th>Último uso</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td>Caja Principal</td>
-                                    <td>
-                                        <span class="badge bg-sucess"> Disponible </span>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 </div>

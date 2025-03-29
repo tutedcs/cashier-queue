@@ -25,9 +25,16 @@ export class CajasService {
         return this.http.get(this.API_URL + 'GetCajasXSeccion/' + idSeccion);
     }
 
+    getDisponiblesXSeccion(idSeccion: number): Observable<any> {
+        return this.http.get(this.API_URL + 'GetDisponiblesXSeccion/' + idSeccion);
+    }
+
     GetInfoCaja(idCaja: number): Observable<any> {
         return this.http.get(this.API_URL + 'GetInfoCaja/' + idCaja);
     }
 
+    switchDisponibilidad(idCaja: number): Observable<any> {
+        return this.http.put(this.API_URL + 'SwitchDisponibilidad/' + idCaja, {});
+    }
     
 }
