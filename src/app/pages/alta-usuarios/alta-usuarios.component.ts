@@ -30,6 +30,7 @@ export class AltaUsuariosComponent {
    // ---- Variables para la paginación ----
    currentPageTotal = 1;
    currentPage = 1;
+   itemsPerPage = 5; // Número de filas por página por defecto
 
 
   // public showPassword: boolean = false;
@@ -52,6 +53,13 @@ export class AltaUsuariosComponent {
   }
 
   ngOnInit() {
+    this.loginSv.checkLogin().subscribe((res:any) => {
+      console.log(res);
+      if (res.rol !== 1) {
+        this.router.navigate(['/mainmenu']);
+      }
+    });
+
     this.getUsuarios();
     this.getSecciones();
 

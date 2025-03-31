@@ -23,17 +23,26 @@
                                 </select>
                             </form>
                         </div>
-                        <div class="col-9">                                                    
-                        <pagination-controls
-                        *ngIf="usuarios.length > 4"
-                        (pageChange)="currentPageTotal = $event"
-                        [maxSize]="4"
-                        [directionLinks]="false"
-                        [autoHide]="true"
-                        style="float: right; margin-top: 10px;"
-                    ></pagination-controls>
+                        <div class="col-3">
+                            <h6 class="text-center">Filas por página:</h6>
+                            <select class="form-select small-select" [(ngModel)]="itemsPerPage">
+                                <option [value]="5">5</option>
+                                <option [value]="10">10</option>
+                                <option [value]="15">15</option>
+                                <option [value]="20">20</option>
+                            </select>
                         </div>
-                    </div>                   
+                        <div class="col-6">
+                            <pagination-controls
+                                *ngIf="usuarios.length > itemsPerPage"
+                                (pageChange)="currentPageTotal = $event"
+                                [maxSize]="itemsPerPage"
+                                [directionLinks]="false"
+                                [autoHide]="true"
+                                style="float: right; margin-top: 10px;"
+                            ></pagination-controls>
+                        </div>
+                    </div>                
                 </div>
                 <table class="styled-table">
                     <thead>
@@ -48,7 +57,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 4, currentPage: currentPageTotal }">
+                        <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPageTotal }">
                             <td><b>{{ usuario.apellido }}</b></td>
                             <td><b>{{ usuario.nombre }}</b></td>
                             <td><b>{{ usuario.usuario }}</b></td>
@@ -90,18 +99,24 @@
                             </select>
                         </div>
                         <div *ngIf="selectCaja === true" class="col-12 mt-2">
-                            <h5>Seleccione la sección:</h5>
-                            <select class="form-select" formControlName="seccion">
-                                <option *ngFor="let seccion of secciones" [value]="seccion.idSeccion">
-                                    {{ seccion.nSeccion }}
-                                </option>
-                            </select>
-                            <h5>Seleccione la caja:</h5>
-                            <select class="form-select" formControlName="caja">
-                                <option *ngFor="let caja of cajas" [value]="caja.idCaja">
-                                    {{ caja.nCaja }}
-                                </option>
-                            </select>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>Seleccione la sección:</h5>
+                                    <select class="form-select" formControlName="seccion">
+                                        <option *ngFor="let seccion of secciones" [value]="seccion.idSeccion">
+                                            {{ seccion.nSeccion }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <h5>Seleccione la caja:</h5>
+                                    <select class="form-select" formControlName="caja">
+                                        <option *ngFor="let caja of cajas" [value]="caja.idCaja">
+                                            {{ caja.nCaja }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="text-center mt-3">

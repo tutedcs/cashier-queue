@@ -1,1 +1,10 @@
-<p>seccion-1 works!</p>
+<div class="header-title">Sección N°1</div>
+<div class="row">
+    <div class="card" *ngIf="cajaDisponible">
+        <h3>DISPONIBLE</h3>
+        <h4>CAJA N° {{ cajaDisponible.nCaja }}</h4>
+    </div>
+    <div class="card" *ngIf="!cajaDisponible">
+        <h3>NO HAY CAJAS DISPONIBLES</h3>
+    </div>
+</div>

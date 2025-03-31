@@ -1,0 +1,35 @@
+/* Centrar el contenido en la página */
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Ajusta el número de columnas dinámicamente */
+    gap: 20px; /* Espaciado entre las tarjetas */
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Altura mínima para centrar verticalmente */
+    padding: 20px; /* Espaciado interno para evitar que las tarjetas toquen los bordes */
+}
+
+/* Estilo para las tarjetas */
+.card {
+    width: 100%; /* Las tarjetas ocuparán todo el ancho disponible en su columna */
+    height: 250px; /* Altura fija para que sean grandes y legibles */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #28a745; /* Fondo verde para indicar disponibilidad */
+    color: #fff; /* Texto blanco para contraste */
+    font-size: 1.5rem; /* Tamaño de fuente grande para televisores */
+    text-align: center;
+}
+
+/* Estilo para el texto superior */
+.header-title {
+    text-align: center;
+    font-size: 4rem; /* Tamaño de fuente grande para televisores */
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}

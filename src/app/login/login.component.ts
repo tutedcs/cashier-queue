@@ -69,11 +69,12 @@ export class LoginComponent {
               this.router.navigate(['/mainmenu']);
             });
           } else {
+            console.log(dataLogin.usuario);
             swalWithBootstrapButtons.fire({
               icon: 'success',
               showConfirmButton: true,
               title: 'Bienvenido, ' + dataLogin.usuario.nombre + ' ' + dataLogin.usuario.apellido,
-              text: 'Estas logueando en la Caja N° ' + dataLogin.usuario.caja + ', Correcto?',
+              text: 'Estas logueando en la Caja N° ' + dataLogin.usuario.nCaja + ' de la Seccion ' + dataLogin.usuario.nSeccion + ', Correcto?',
               showCancelButton: true,
               allowEscapeKey: false,
               allowOutsideClick: false,

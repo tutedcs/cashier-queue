@@ -3,6 +3,7 @@ import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { UsuariosService } from '../../services/usuarios.service';
 import { CajasService } from '../../services/cajas.service';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-mainmenu',
@@ -23,9 +24,13 @@ export class MainmenuComponent {
   timerNoDisponible: string = '00:00';
   totalNoDisponible: string = '00:00';
 
-  constructor(private usuarioSv: UsuariosService, private cajasSv: CajasService) {}
+  constructor(private usuarioSv: UsuariosService, private cajasSv: CajasService,
+              private loginSv: LoginService){}
 
   ngOnInit() {
+
+    this.loginSv.checkLogin()
+    
     const session = sessionStorage.getItem('session')
     if (session) {
       const lol= JSON.parse(session);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { of, Observable } from 'rxjs'; // Ensure 'of' is imported
 import { Environment } from '../../env/environment';
 import { userLogin, userRegister } from '../models/login.model';
 import { Router } from '@angular/router';
@@ -19,15 +19,36 @@ export class LoginService {
         return this.http.post(this.API_URL + 'Login', UserLogin);
     }
 
+    logOut(idUsuario: number): void {
+        this.http.post(this.API_URL + 'Logout', idUsuario, {
+            headers: { 'Content-Type': 'application/json' }
+        }).subscribe({
+            next: () => {
+                sessionStorage.removeItem('session');
+                this.router.navigate(['/login']);
+            },
+            error: (err) => {
+                console.error('Error en logout:', err);
+            }
+        });
+    }
+    
+    
+
     register (userRegister: userRegister): Observable<any> {
         return this.http.post(this.API_URL + 'Register', userRegister);
     }
 
-    checkLogin(): void {
+    checkLogin(): Observable<any> {
         if (!sessionStorage.getItem('session')) {
             this.router.navigate(['/login']);
+            return new Observable(observer => {
+                observer.next(false);
+                observer.complete();
+            });
         } else {
-            return JSON.parse(sessionStorage.getItem('session') || '{}');
+            const session = JSON.parse(sessionStorage.getItem('session') || '{}');
+            return of(session); // Wrap the session object in an Observable
         }
     }
 }
