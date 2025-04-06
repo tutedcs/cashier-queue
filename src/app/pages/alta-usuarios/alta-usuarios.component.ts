@@ -119,31 +119,31 @@ export class AltaUsuariosComponent {
         caja: Number(caja) // Asegura que es un número 
       };    
       console.log(params);
-      this.loginSv.register(params).subscribe((data: any) => {
-          if (data.code==='200'){
-            Swal.fire({
-              icon: 'success',
-              title: 'Usuario registrado',
-              text: 'El usuario se ha registrado correctamente',
-              timer: 2000,
-              showConfirmButton: false,
-              timerProgressBar: true
-            }).then((result) => {
-              this.getUsuarios();
-              this.form.reset();
-              this.selectCaja = false;
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error al registrar',
-              text: 'Ha ocurrido un error al registrar el usuario',
-              timer: 4000,
-              showConfirmButton: false,
-              timerProgressBar: true
-            });
-          }
-      });
+      // this.loginSv.register(params).subscribe((data: any) => {
+      //     if (data.code==='200'){
+      //       Swal.fire({
+      //         icon: 'success',
+      //         title: 'Usuario registrado',
+      //         text: 'El usuario se ha registrado correctamente',
+      //         timer: 2000,
+      //         showConfirmButton: false,
+      //         timerProgressBar: true
+      //       }).then((result) => {
+      //         this.getUsuarios();
+      //         this.form.reset();
+      //         this.selectCaja = false;
+      //       });
+      //     } else {
+      //       Swal.fire({
+      //         icon: 'error',
+      //         title: 'Error al registrar',
+      //         text: 'Ha ocurrido un error al registrar el usuario',
+      //         timer: 4000,
+      //         showConfirmButton: false,
+      //         timerProgressBar: true
+      //       });
+      //     }
+      // });
 
   } else {
     Swal.fire({

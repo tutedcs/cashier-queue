@@ -50,10 +50,10 @@
                             <th scope="col">Apellido</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">N° Legajo</th>
-                            <th scope="col">Caja</th>
-                            <th scope="col">Sección</th>
+                            <!-- <th scope="col">Caja</th>
+                            <th scope="col">Sección</th> -->
                             <th scope="col">Rol</th>
-                            <th scope="col">Acción</th>
+                            <!-- <th scope="col">Acción</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -61,14 +61,14 @@
                             <td><b>{{ usuario.apellido }}</b></td>
                             <td><b>{{ usuario.nombre }}</b></td>
                             <td><b>{{ usuario.usuario }}</b></td>
-                            <td><b>{{ usuario.caja === 0 ? 'No tiene' : usuario.caja }}</b></td>
-                            <td><b>{{ usuario.seccion === 0 ? 'No tiene' : usuario.seccion }}</b></td>
+                            <!-- <td><b>{{ usuario.caja === 0 ? 'No tiene' : usuario.caja }}</b></td>
+                            <td><b>{{ usuario.seccion === 0 ? 'No tiene' : usuario.seccion }}</b></td> -->
                             <td><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : '' }}</b></td>
-                            <td>
+                            <!-- <td>
                                 <button *ngIf="usuario.rol !== 1" class="btn btn-warning" (click)="cambiarCajaUsuario(usuario.idUsuario)">
                                     <i class="bi bi-pencil"></i>
                                 </button>
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
                 </table>

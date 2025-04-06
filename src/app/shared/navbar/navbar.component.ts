@@ -31,7 +31,7 @@ export class NavbarComponent {
       this.rolUser = sessionData.rol;
       this.idUsuario = sessionData.idUsuario;
 
-      this.usuarioSv.searchUsuario(sessionData.idUsuario).subscribe((searchRes: any) => {
+      this.usuarioSv.getUsuarioXid(sessionData.idUsuario).subscribe((searchRes: any) => {
         console.log('searchRes:' ,searchRes);
         this.userInfo = {
           nombre: sessionData.nombre,
