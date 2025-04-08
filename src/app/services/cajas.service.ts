@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Environment } from '../../env/environment';
 
 @Injectable({
@@ -9,6 +9,9 @@ import { Environment } from '../../env/environment';
 export class CajasService {
     
     API_URL = Environment.apiUrl + 'Cajas/';
+
+    private cajaDisponibleSubject = new Subject<number>();
+  cajaDisponible$ = this.cajaDisponibleSubject.asObservable();
     
     constructor(private http: HttpClient) { }
 
@@ -36,5 +39,14 @@ export class CajasService {
     switchDisponibilidad(idCaja: number): Observable<any> {
         return this.http.put(this.API_URL + 'SwitchDisponibilidad/' + idCaja, {});
     }
+
+
+
+    ///////////////////////
+
+    notifyCajaDisponible(idCaja: number) {
+        this.cajaDisponibleSubject.next(idCaja);
+    }
+
     
 }

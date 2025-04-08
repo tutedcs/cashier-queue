@@ -21,6 +21,11 @@ export class LoginComponent {
   cajas: any[] = [];
   form: FormGroup;
 
+  idUsuario: number = 0;
+  nombre: string = '';
+  apellido: string = '';
+  rol: string = '';
+
   constructor(private fb: FormBuilder, private router: Router, 
               private loginSv: LoginService, private cajasSv: CajasService,
               private usuariosSv: UsuariosService,private seccionSv: SeccionService) {
@@ -33,13 +38,23 @@ export class LoginComponent {
 
   }
 
-  saveSessionStorage(dataLogin: any){
-    sessionStorage.setItem('session', JSON.stringify({
-      idUsuario: dataLogin.usuario.idUsuario,
-      nombre: dataLogin.usuario.nombre,
-      apellido: dataLogin.usuario.apellido,
-      rol: dataLogin.usuario.rol
-    }));  
+  saveSessionStorage(dataLogin: any, type: number){
+    if (type === 1) {
+      sessionStorage.setItem('session', JSON.stringify({
+        idUsuario: dataLogin.usuario.idUsuario,
+        nombre: dataLogin.usuario.nombre,
+        apellido: dataLogin.usuario.apellido,
+        rol: dataLogin.usuario.rol
+      }));  
+    } else if (type === 2) {
+      sessionStorage.setItem('session', JSON.stringify({
+        idUsuario: dataLogin.idUsuario,
+        nombre: dataLogin.nombre,
+        apellido: dataLogin.apellido,
+        rol: dataLogin.rol
+      })); 
+    }
+     
 
   }
 
@@ -102,7 +117,36 @@ export class LoginComponent {
                   timer: 3000,
                   showConfirmButton: false,
                   timerProgressBar: true,
-                });
+                }).then(() => {
+                  const assignCaja = {
+                    idUsuario: this.idUsuario,
+                    idCaja: parseInt(selectedCajaId)
+                  };
+                  this.loginSv.assignCaja(assignCaja).subscribe((dataLogin: any) => {
+                    if (dataLogin.code == '200') {
+                      console.log('dataLogin:', dataLogin);
+                      const sessionStorage = {
+                        idUsuario: this.idUsuario,
+                        nombre: this.nombre,
+                        apellido: this.apellido,
+                        rol: this.rol,
+                      }
+                      this.saveSessionStorage(sessionStorage, 2);
+                      this.router.navigate(['/mainmenu']);
+                    } else if (dataLogin.code == 'CAJA_OCUPADA') {
+                      Swal.fire({
+
+                        icon: 'error',
+                        title: 'La caja ya está ocupada',
+                        text: 'Por favor, verifique los datos ingresados',
+                        timer: 3000,
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false
+                      });
+                    }
+                  });
+                })
               } else {
                 Swal.fire({
                   icon: 'error',
@@ -125,6 +169,10 @@ export class LoginComponent {
     if (this.form.valid) {
       this.loginSv.checkUser({ usuario: this.form.value.usuario }).subscribe((dataCheck: any) => {
         if (dataCheck.code == 'NEED_CAJANUM') {
+          this.idUsuario = dataCheck.usuario.idUsuario;
+          this.nombre = dataCheck.usuario.nombre;
+          this.apellido = dataCheck.usuario.apellido;
+          this.rol = dataCheck.usuario.rol;
           this.selectSeccionYCaja(); // Llama a la función para seleccionar sección y caja      
         } else if (dataCheck.code == 'NEED_PASSWORD') {
           Swal.fire({
@@ -147,7 +195,7 @@ export class LoginComponent {
               this.loginSv.login(userLoginWithPassword).subscribe((dataLogin: any) => {
                 if (dataLogin.code == 'LOGIN_SUCCESS') {
                   console.log('dataLogin:', dataLogin);
-                  this.saveSessionStorage(dataLogin);
+                  this.saveSessionStorage(dataLogin, 1);
                   this.router.navigate(['/mainmenu']);
                 } else {
                   Swal.fire({

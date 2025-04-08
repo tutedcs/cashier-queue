@@ -26,13 +26,10 @@ export class NavbarComponent {
     const session = sessionStorage.getItem('session');
     if (session) {
       const sessionData = JSON.parse(session);
-      console.log('sessionData:' ,sessionData);
-      console.log('sessionData.idUsuario:' ,sessionData.idUsuario);
       this.rolUser = sessionData.rol;
       this.idUsuario = sessionData.idUsuario;
 
       this.usuarioSv.getUsuarioXid(sessionData.idUsuario).subscribe((searchRes: any) => {
-        console.log('searchRes:' ,searchRes);
         this.userInfo = {
           nombre: sessionData.nombre,
           apellido: sessionData.apellido,

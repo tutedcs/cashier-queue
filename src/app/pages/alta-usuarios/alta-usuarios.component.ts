@@ -25,7 +25,8 @@ export class AltaUsuariosComponent {
   cajas: any[] = [];
   secciones: any[] = [];
 
-  selectCaja: boolean = false;
+  insertPassword: boolean = false;
+  showPassword: boolean = false;
 
    // ---- Variables para la paginación ----
    currentPageTotal = 1;
@@ -44,8 +45,8 @@ export class AltaUsuariosComponent {
       apellido: ['', Validators.required],
       usuario: ['', Validators.required],
       rol: ['', Validators.required],
-      seccion: [''],
-      caja: ['', Validators.required],
+      caja: [0, Validators.required],
+      password: [''],
     });
     this.formSearch = this.fb.group({
       search: [''],
@@ -65,9 +66,9 @@ export class AltaUsuariosComponent {
 
     this.form.get('rol')?.valueChanges.subscribe((value) => {
       if (value==='1') {
-        this.selectCaja = false;
+        this.insertPassword = true;
       } else {
-        this.selectCaja = true;
+        this.insertPassword = false;
       }
     });
 
@@ -110,66 +111,118 @@ export class AltaUsuariosComponent {
       const apellido = this.form.get('apellido')?.value;
       const rol = this.form.get('rol')?.value;
       const caja = this.form.get('caja')?.value;
+      const password = this.form.get('password')?.value;
       
-      const params = { 
-        usuario, 
-        nombre, 
-        apellido, 
-        rol: Number(rol), // Asegura que es un número 
-        caja: Number(caja) // Asegura que es un número 
-      };    
-      console.log(params);
-      // this.loginSv.register(params).subscribe((data: any) => {
-      //     if (data.code==='200'){
-      //       Swal.fire({
-      //         icon: 'success',
-      //         title: 'Usuario registrado',
-      //         text: 'El usuario se ha registrado correctamente',
-      //         timer: 2000,
-      //         showConfirmButton: false,
-      //         timerProgressBar: true
-      //       }).then((result) => {
-      //         this.getUsuarios();
-      //         this.form.reset();
-      //         this.selectCaja = false;
-      //       });
-      //     } else {
-      //       Swal.fire({
-      //         icon: 'error',
-      //         title: 'Error al registrar',
-      //         text: 'Ha ocurrido un error al registrar el usuario',
-      //         timer: 4000,
-      //         showConfirmButton: false,
-      //         timerProgressBar: true
-      //       });
-      //     }
-      // });
+      
 
-  } else {
-    Swal.fire({
-      icon: 'error',
-      title: 'Por favor, rellene todos los campos',
-      timer: 3000,
-      showConfirmButton: false,
-      timerProgressBar: true,
-      toast: true,
-      position: 'top-end'
-    });
-  } 
+      if (rol==='1') {
+        const params = { 
+          usuario: usuario, 
+          nombre: nombre, 
+          apellido: apellido, 
+          rol: Number(rol),
+          caja: Number(caja),
+          password: password
+        };
+
+
+        this.loginSv.register(params).subscribe((data: any) => {
+          if (data.code==='200'){
+            Swal.fire({
+              icon: 'success',
+              title: 'Usuario registrado',
+              text: 'El usuario se ha registrado correctamente',
+              timer: 2000,
+              showConfirmButton: false,
+              timerProgressBar: true
+            }).then((result) => {
+              this.getUsuarios();
+              this.form.reset();
+              this.insertPassword = false;
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al registrar',
+              text: 'Ha ocurrido un error al registrar el usuario',
+              timer: 4000,
+              showConfirmButton: false,
+              timerProgressBar: true
+            });
+          }
+        });
+
+      } else if (rol === '2'){
+        const params = { 
+          usuario: usuario, 
+          nombre: nombre, 
+          apellido: apellido, 
+          rol: Number(rol),
+          caja: Number(caja),
+        };
+        console.log('params',params);
+        console.log('form', this.form.value);
+
+        this.loginSv.registerUser(params).subscribe((data: any) => {
+          if (data.code==='200'){
+            Swal.fire({
+              icon: 'success',
+              title: 'Usuario registrado',
+              text: 'El usuario se ha registrado correctamente',
+              timer: 2000,
+              showConfirmButton: false,
+              timerProgressBar: true
+            }).then((result) => {
+              this.getUsuarios();
+              this.form.reset();
+              this.insertPassword = false;
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al registrar',
+              text: 'Ha ocurrido un error al registrar el usuario',
+              timer: 4000,
+              showConfirmButton: false,
+              timerProgressBar: true
+            });
+          }
+        })
+      }
+
+
+
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Por favor, rellene todos los campos',
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        toast: true,
+        position: 'top-end'
+      });
+    } 
   }
 
   onSubmit() {
     const rol = this.form.get('rol')?.value;
 
     if (rol==='1') {
-      this.form.get('caja')?.setValue(12); 
+      this.form.get('caja')?.setValue('1'); // Caja por defecto para usuarios de tipo 1
       // Caja por defecto para usuarios de tipo 1
-      // en un entorno correcto, pasaria a ser 0
       this.form.get('seccion')?.setValue(0);
       this.submitForm();
     } else {
+      // Caja por defecto para usuarios de tipo 2
+      this.form.get('caja')?.setValue('2'); 
+      this.form.get('seccion')?.setValue(0);
       this.submitForm();
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   cambiarCajaUsuario(idUsuario: number) {

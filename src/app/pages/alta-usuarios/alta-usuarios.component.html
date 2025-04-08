@@ -10,20 +10,6 @@
                 <div class="caption-container">
                     <div class="row mt-2 mb-2">
                         <div class="col-3">
-                            <form [formGroup]="formSearch">
-                                <h6 class="text-center">Filtrar por sección:</h6>
-                                <select
-                                    formControlName="search"
-                                    class="form-select small-select"
-                                >
-                                    <option value="">Todas</option>
-                                    <option *ngFor="let seccion of secciones" [value]="seccion.idSeccion">
-                                        {{ seccion.nSeccion }}
-                                    </option>
-                                </select>
-                            </form>
-                        </div>
-                        <div class="col-3">
                             <h6 class="text-center">Filas por página:</h6>
                             <select class="form-select small-select" [(ngModel)]="itemsPerPage">
                                 <option [value]="5">5</option>
@@ -32,6 +18,7 @@
                                 <option [value]="20">20</option>
                             </select>
                         </div>
+                        <div class="col-3"></div>
                         <div class="col-6">
                             <pagination-controls
                                 *ngIf="usuarios.length > itemsPerPage"
@@ -49,7 +36,7 @@
                         <tr>
                             <th scope="col">Apellido</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">N° Legajo</th>
+                            <th scope="col">N° Legajo / Usuario</th>
                             <!-- <th scope="col">Caja</th>
                             <th scope="col">Sección</th> -->
                             <th scope="col">Rol</th>
@@ -61,14 +48,7 @@
                             <td><b>{{ usuario.apellido }}</b></td>
                             <td><b>{{ usuario.nombre }}</b></td>
                             <td><b>{{ usuario.usuario }}</b></td>
-                            <!-- <td><b>{{ usuario.caja === 0 ? 'No tiene' : usuario.caja }}</b></td>
-                            <td><b>{{ usuario.seccion === 0 ? 'No tiene' : usuario.seccion }}</b></td> -->
                             <td><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : '' }}</b></td>
-                            <!-- <td>
-                                <button *ngIf="usuario.rol !== 1" class="btn btn-warning" (click)="cambiarCajaUsuario(usuario.idUsuario)">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                            </td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -87,7 +67,7 @@
                     </div>
                     <div class="row g-2 mt-2">
                         <div class="col-12">
-                            <input type="text" class="form-control" formControlName="usuario" placeholder="Legajo">
+                            <input type="text" class="form-control" formControlName="usuario" autocomplete="username" placeholder="Legajo">
                         </div>
                     </div>
                     <div class="row justify-content-center mt-3">
@@ -98,23 +78,27 @@
                                 <option value="2">Usuario</option>
                             </select>
                         </div>
-                        <div *ngIf="selectCaja === true" class="col-12 mt-2">
+                        <div *ngIf="insertPassword === true" class="col-12 mt-5">
                             <div class="row">
                                 <div class="col-6">
-                                    <h5>Seleccione la sección:</h5>
-                                    <select class="form-select" formControlName="seccion">
-                                        <option *ngFor="let seccion of secciones" [value]="seccion.idSeccion">
-                                            {{ seccion.nSeccion }}
-                                        </option>
-                                    </select>
+                                    <label for="password">
+                                        Inserte contraseña:
+                                    </label>
                                 </div>
-                                <div class="col-6">
-                                    <h5>Seleccione la caja:</h5>
-                                    <select class="form-select" formControlName="caja">
-                                        <option *ngFor="let caja of cajas" [value]="caja.idCaja">
-                                            {{ caja.nCaja }}
-                                        </option>
-                                    </select>
+                                <div class="col-6 d-flex align-items-center">
+                                    <input 
+                                        [type]="showPassword ? 'text' : 'password'" 
+                                        class="form-control" 
+                                        formControlName="password" 
+                                        placeholder="Contraseña"
+                                        autocomplete="current-password"
+                                        >
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-outline-secondary ms-2" 
+                                        (click)="togglePasswordVisibility()">
+                                        <i [class]="showPassword ? 'bi btn-outline-dark bi-eye-slash' : 'bi btn-outline-dark bi-eye'"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>

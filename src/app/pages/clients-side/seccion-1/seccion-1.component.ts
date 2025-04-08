@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CajasService } from '../../../services/cajas.service';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-seccion-1',
@@ -9,22 +10,35 @@ import { CommonModule } from '@angular/common';
   templateUrl: './seccion-1.component.html',
   styleUrl: './seccion-1.component.css'
 })
-export class Seccion1Component {
-  cajaDisponible: any = null; // Solo almacenará el primer elemento disponible
-  
-  constructor(private cajasSv: CajasService) { }
-  
+export class Seccion1Component implements OnInit, OnDestroy {
+  cajaDisponible: any = null;
+  private timeoutHandle: any;
+  private subscription: Subscription = new Subscription;
+
+  constructor(private cajasSv: CajasService) {}
+
   ngOnInit(): void {
-    this.getCajas();
-    setInterval(() => {
-      this.getCajas();
-    }, 1000);
+    // Suscribirse al observable para recibir el idCaja
+    this.subscription = this.cajasSv.cajaDisponible$.subscribe((idCaja: number) => {
+      this.mostrarCajaPor30Segundos(idCaja);
+    });
   }
 
-  getCajas() {
-    this.cajasSv.getDisponiblesXSeccion(2).subscribe((data: any) => {
-      this.cajaDisponible = data.response.length > 0 ? data.response[0] : null; // Toma el primer elemento o null si no hay disponibles
-      console.log(this.cajaDisponible);
-    });
+  mostrarCajaPor30Segundos(idCaja: number) {
+    this.cajaDisponible = { nCaja: idCaja };
+
+    // Después de 30 segundos, ocultar la caja disponible
+    this.timeoutHandle = setTimeout(() => {
+      this.cajaDisponible = null;
+    }, 30000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.timeoutHandle) {
+      clearTimeout(this.timeoutHandle);
+    }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
