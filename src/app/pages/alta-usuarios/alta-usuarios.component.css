@@ -1,0 +1,73 @@
+.content-container {
+  display: flex;
+  justify-content: space-between; /* Espacio entre la tabla y el formulario */
+  align-items: flex-start; /* Alinea ambos elementos al inicio vertical */
+  padding: 20px;
+  gap: 20px; /* Espacio entre la tabla y el formulario */
+  height: auto; /* Ajusta la altura automáticamente */
+}
+
+/* Tabla */
+.table-container {
+  margin: 3%;
+  flex: 1; /* Ocupa el espacio disponible */
+  max-width: 60%; /* Limita el ancho máximo de la tabla */
+  margin-right: 20px; /* Espacio a la derecha */
+  display: flex;
+  flex-direction: column; /* Asegura que el contenido interno esté alineado verticalmente */
+}
+
+.styled-table {
+  margin-top: 1%;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.styled-table th,
+.styled-table td {
+  border: 1px solid black;
+  padding: 12px;
+}
+
+.styled-table th {
+  background-color: #ffa733;
+}
+
+/* Formulario */
+.form-container {
+  margin: 5%;
+  flex: 1; /* Ocupa el espacio disponible */
+  max-width: 35%; /* Limita el ancho máximo del formulario */
+  margin-left: 20px; /* Espacio a la izquierda */
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre los elementos del formulario */
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+

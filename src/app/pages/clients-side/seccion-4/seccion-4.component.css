@@ -1,0 +1,25 @@
+/* Centrar el contenido en la página */
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 80vh; /* Altura mínima para centrar verticalmente */
+}
+
+/* Estilo para las tarjetas */
+.card {
+    margin: 15px;
+    width: 300px; /* Ancho fijo para las tarjetas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* Estilo para el texto superior */
+.header-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}

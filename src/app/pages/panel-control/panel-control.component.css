@@ -1,0 +1,10 @@
+
+.col-9 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1 0 30%; /* Adjust the percentage as needed */
+    margin: 10px;
+}
