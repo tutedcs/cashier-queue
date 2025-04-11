@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { Environment } from '../../../env/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,7 @@ export class NavbarComponent {
 
   constructor(private router: Router, private loginSv: LoginService,
               private usuarioSv: UsuariosService) {}
-
+  
   ngOnInit(): void {
     this.loginSv.checkLogin();
 
@@ -37,6 +38,18 @@ export class NavbarComponent {
         };
       }); 
     }
+
+    // Añadir el evento beforeunload
+    const idUsuario = this.idUsuario;
+    window.addEventListener('beforeunload', () => {
+      const url = Environment.apiUrl + '/Auth/LogOut';
+      const data = new Blob(
+        [JSON.stringify({ idUsuario })],
+        { type: 'application/json' }
+      );
+
+      navigator.sendBeacon(url, data);
+    });
   }
 
   toggleMenu() {

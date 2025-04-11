@@ -46,20 +46,20 @@ export class MainmenuComponent {
         })
       })
 
-    } 
+    }
   }
 
 
   switchDisponibilidad() {
     this.disponibilidad = !this.disponibilidad;
     if (this.disponibilidad) {
-      this.cajasSv.notifyCajaDisponible(this.idCaja);
+      // this.signalR.notificarCajaDisponible(3); // Enviamos señal de que caja 3 está disponible
     }
 
 
-    // this.cajasSv.switchDisponibilidad(this.idCaja).subscribe((res:any) => {
-    //   console.log(res);
-    // })
+    this.cajasSv.switchDisponibilidad(this.idCaja).subscribe((res:any) => {
+      console.log(res);
+    })
     // if (this.disponibilidad === false) {
     //     let totalSeconds = 0;
     //     this.timerNoDisponible = '00:00'; // Inicializa el temporizador en 00:00

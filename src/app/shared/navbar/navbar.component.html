@@ -5,7 +5,7 @@
         </div>
         <div class="navbar-links">
             <a class="btn nav-link" *ngIf="rolUser" (click)="navigate('/mainmenu')">Menu Principal</a>
-            <a class="btn nav-link" *ngIf="rolUser===1" (click)="navigate('/panel-control')">Panel de control</a>
+            <!-- <a class="btn nav-link" *ngIf="rolUser===1" (click)="navigate('/panel-control')">Panel de control</a> -->
             <a class="btn nav-link" *ngIf="rolUser===1" (click)="navigate('/alta-usuarios')">Alta de Usuarios</a>
             <div class="user-dropdown" *ngIf="userInfo">
                 <button class="btn nav-link dropdown-toggle" (click)="toggleMenu()">

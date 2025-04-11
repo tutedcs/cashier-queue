@@ -39,19 +39,21 @@ export class LoginComponent {
   }
 
   saveSessionStorage(dataLogin: any, type: number){
+    console.log('dataLogin:', dataLogin);
     if (type === 1) {
       sessionStorage.setItem('session', JSON.stringify({
         idUsuario: dataLogin.usuario.idUsuario,
         nombre: dataLogin.usuario.nombre,
         apellido: dataLogin.usuario.apellido,
-        rol: dataLogin.usuario.rol
+        rol: dataLogin.usuario.rol,
       }));  
     } else if (type === 2) {
       sessionStorage.setItem('session', JSON.stringify({
         idUsuario: dataLogin.idUsuario,
         nombre: dataLogin.nombre,
         apellido: dataLogin.apellido,
-        rol: dataLogin.rol
+        rol: dataLogin.rol,
+        idCaja: dataLogin.idCaja,
       })); 
     }
      
@@ -130,6 +132,7 @@ export class LoginComponent {
                         nombre: this.nombre,
                         apellido: this.apellido,
                         rol: this.rol,
+                        idCaja: dataLogin.idCaja,
                       }
                       this.saveSessionStorage(sessionStorage, 2);
                       this.router.navigate(['/mainmenu']);
