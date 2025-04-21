@@ -4,6 +4,8 @@ import { UsuariosService } from '../../services/usuarios.service';
 import { CajasService } from '../../services/cajas.service';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
+import { WebsocketService } from '../../services/websocket.service';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-mainmenu',
@@ -24,11 +26,11 @@ export class MainmenuComponent {
   timerNoDisponible: string = '00:00';
   totalNoDisponible: string = '00:00';
 
-  constructor(private usuarioSv: UsuariosService, 
-              private cajasSv: CajasService,
-              private loginSv: LoginService){}
+  constructor(private usuarioSv: UsuariosService, private cajasSv: CajasService,
+              private loginSv: LoginService, private ws: WebsocketService){}
 
   ngOnInit() {
+    this.ws.startConnection();
     this.loginSv.checkLogin()
     
     const session = sessionStorage.getItem('session')
@@ -51,34 +53,35 @@ export class MainmenuComponent {
 
 
   switchDisponibilidad() {
-    this.disponibilidad = !this.disponibilidad;
-    if (this.disponibilidad) {
-      // this.signalR.notificarCajaDisponible(3); // Enviamos señal de que caja 3 está disponible
+    console.log('N° de caja: ', this.nCaja);
+    console.log('N° de seccion: ', this.nSeccion);
+    this.disponibilidad = true;
+
+    if (this.nSeccion === 1) {
+        this.ws.enviarAsignacion(this.nCaja, 'poker-room');
+        setTimeout(() => {
+            this.disponibilidad = false;
+            console.log('Disponibilidad actualizada a:', this.disponibilidad);
+        }, 5000); 
+    } else if (this.nSeccion === 2) {
+        this.ws.enviarAsignacion(this.nCaja, 'nucleo-1');
+        setTimeout(() => {
+          this.disponibilidad = false;
+          console.log('Disponibilidad actualizada a:', this.disponibilidad);
+      }, 5000); 
+    } else if (this.nSeccion === 3) {
+        this.ws.enviarAsignacion(this.nCaja, 'nucleo-2');
+        setTimeout(() => {
+          this.disponibilidad = false;
+          console.log('Disponibilidad actualizada a:', this.disponibilidad);
+      }, 5000); 
+    } else if (this.nSeccion === 4) {
+        this.ws.enviarAsignacion(this.nCaja, 'nucleo-3');
+        setTimeout(() => {
+          this.disponibilidad = false;
+          console.log('Disponibilidad actualizada a:', this.disponibilidad);
+      }, 5000); 
     }
-
-
-    this.cajasSv.switchDisponibilidad(this.idCaja).subscribe((res:any) => {
-      console.log(res);
-    })
-    // if (this.disponibilidad === false) {
-    //     let totalSeconds = 0;
-    //     this.timerNoDisponible = '00:00'; // Inicializa el temporizador en 00:00
-    //     const interval = setInterval(() => {
-    //         totalSeconds++;
-    //         const minutes = Math.floor(totalSeconds / 60);
-    //         const seconds = totalSeconds % 60;
-    //         this.timerNoDisponible = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    //         if (this.disponibilidad) {
-    //             clearInterval(interval);
-    //             const [currentTotalMinutes, currentTotalSeconds] = this.totalNoDisponible.split(':').map(Number);
-    //             const newTotalSeconds = currentTotalMinutes * 60 + currentTotalSeconds + totalSeconds;
-    //             const newTotalMinutes = Math.floor(newTotalSeconds / 60);
-    //             const newTotalRemainingSeconds = newTotalSeconds % 60;
-    //             this.totalNoDisponible = `${newTotalMinutes.toString().padStart(2, '0')}:${newTotalRemainingSeconds.toString().padStart(2, '0')}`;
-    //             localStorage.setItem('SessionData', JSON.stringify({ idUsuario: this.idUsuario, totalNoDisponible: this.totalNoDisponible }));
-    //         }
-    //     }, 1000);
-    // }
-  }
+}
   
 }
