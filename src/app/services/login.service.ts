@@ -36,10 +36,14 @@ export class LoginService {
     } 
     const rol = session.rol;
     if (rol === '2') {
-      this.http.post(this.API_URL + 'Logout', idUsuario, {}).subscribe({
-        next: () => {
-          sessionStorage.removeItem('session');
-          this.router.navigate(['/login']);
+      this.http.post(this.API_URL + 'LogOut', { idUsuario }).subscribe({
+        next: (response: any) => {
+          if (response.code === "200") {
+            sessionStorage.removeItem('session');
+            this.router.navigate(['/login']);
+          } else {
+            console.error('Error en logout:', response.mensaje);
+          }
         },
         error: (err) => {
           console.error('Error en logout:', err);

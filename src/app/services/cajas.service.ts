@@ -11,7 +11,7 @@ export class CajasService {
     API_URL = Environment.apiUrl + 'Cajas/';
 
     private cajaDisponibleSubject = new Subject<number>();
-  cajaDisponible$ = this.cajaDisponibleSubject.asObservable();
+    cajaDisponible$ = this.cajaDisponibleSubject.asObservable();
     
     constructor(private http: HttpClient) { }
 
