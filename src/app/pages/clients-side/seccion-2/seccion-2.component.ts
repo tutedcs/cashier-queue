@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class Seccion2Component {
   seccionLocal = 'nucleo-1';
+  mensajeCaja: string | null = null;
   
     constructor(private cajasSv: CajasService, private ws: WebsocketService) {}
   
@@ -23,22 +24,10 @@ export class Seccion2Component {
         this.ws.onAsignacion(({ nCaja, seccion }) => {
           if (seccion === this.seccionLocal) {
             console.log(`🟢 Asignación recibida para ${seccion}: Caja ${nCaja}`);
-            Swal.fire({
-              title: `Dirijase a la caja ${nCaja}`,
-              text: `Caja ${nCaja} Disponible`,
-              icon: 'success',
-              showCancelButton: false,
-              showConfirmButton: false,
-              timerProgressBar: true,
-              timer: 5000,
-              width: '500px',
-              padding: '2rem',
-              backdrop: true,
-              customClass: {
-                popup: 'swal2-large-popup',
-                title: 'swal2-large-title',
-              },
-            })
+            this.mensajeCaja = `${nCaja}`;
+            setTimeout(() => {
+              this.mensajeCaja = null;
+            }, 5000); // Ocultar mensaje después de 5 segundos
           }
         });
       });

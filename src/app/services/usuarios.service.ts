@@ -36,10 +36,8 @@ export class UsuariosService {
     }
     
     desactivarUsuario(idUsuario: number): Observable<any> {
-        return this.http.put(this.API_URL + 'Desactivar/' + idUsuario, {});
+        return this.http.delete(this.API_URL + 'DeleteUser/' + idUsuario);
     }
 
-    activarUsuario(idUsuario: number): Observable<any> {
-        return this.http.put(this.API_URL + 'Activar/' + idUsuario, {});
-    }
+
 }

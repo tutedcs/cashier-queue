@@ -199,7 +199,7 @@ export class LoginComponent {
                 if (dataLogin.code == 'LOGIN_SUCCESS') {
                   console.log('dataLogin:', dataLogin);
                   this.saveSessionStorage(dataLogin, 1);
-                  this.router.navigate(['/mainmenu']);
+                  this.router.navigate(['/alta-usuarios']);
                 } else {
                   Swal.fire({
                     icon: 'error',

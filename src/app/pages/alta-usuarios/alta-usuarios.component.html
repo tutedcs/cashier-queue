@@ -40,7 +40,7 @@
                             <!-- <th scope="col">Caja</th>
                             <th scope="col">Sección</th> -->
                             <th scope="col">Rol</th>
-                            <!-- <th scope="col">Acción</th> -->
+                            <th scope="col">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +49,9 @@
                             <td><b>{{ usuario.nombre }}</b></td>
                             <td><b>{{ usuario.usuario }}</b></td>
                             <td><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : '' }}</b></td>
+                            <td>
+                                <button *ngIf="usuario.idUsuario!==this.idUsuario" class="btn btn-danger" (click)="deleteUsuario(usuario.idUsuario)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

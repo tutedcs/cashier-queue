@@ -13,6 +13,8 @@ import { WebsocketService } from '../../../services/websocket.service';
 })
 export class Seccion4Component {
  seccionLocal = 'nucleo-3';
+ mensajeCaja: string | null = null;
+
    
      constructor(private cajasSv: CajasService, private ws: WebsocketService) {}
    
@@ -21,26 +23,14 @@ export class Seccion4Component {
          this.ws.unirseASeccion(this.seccionLocal);
      
          this.ws.onAsignacion(({ nCaja, seccion }) => {
-           if (seccion === this.seccionLocal) {
-             console.log(`🟢 Asignación recibida para ${seccion}: Caja ${nCaja}`);
-             Swal.fire({
-               title: `Dirijase a la caja ${nCaja}`,
-               text: `Caja ${nCaja} Disponible`,
-               icon: 'success',
-               showCancelButton: false,
-               showConfirmButton: false,
-               timerProgressBar: true,
-               timer: 5000,
-               width: '500px',
-               padding: '2rem',
-               backdrop: true,
-               customClass: {
-                 popup: 'swal2-large-popup',
-                 title: 'swal2-large-title',
-               },
-             })
-           }
-         });
+          if (seccion === this.seccionLocal) {
+            console.log(`🟢 Asignación recibida para ${seccion}: Caja ${nCaja}`);
+            this.mensajeCaja = `${nCaja}`;
+            setTimeout(() => {
+              this.mensajeCaja = null;
+            }, 5000); // Ocultar mensaje después de 5 segundos
+          }
+        });
        });
      }
 }
