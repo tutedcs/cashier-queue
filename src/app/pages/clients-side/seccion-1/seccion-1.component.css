@@ -52,18 +52,69 @@
     border-radius: 30px; /* Bordes más redondeados */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
     color: white;
+    z-index: 10; 
 }
 
 .mensaje-texto {
-    font-size: 4rem; /* Incrementar tamaño */
+    font-size: 4rem;
     font-weight: bold;
     color: white;
-    margin-bottom: 30px; /* Más espacio entre texto y número */
+    margin-bottom: 30px; 
 }
 
 .mensaje-numero {
-    font-size: 30rem; /* Incrementar tamaño del número */
+    font-size: 30rem;
     font-weight: bold;
-    color: rgb(21, 255, 0); /* Color verde brillante */
-    font-family: 'Digital-7', sans-serif; /* Usa una fuente digital si está disponible */
+    color: rgb(21, 255, 0); 
+    font-family: 'Digital-7', sans-serif;
+}
+
+/* Estilos para el contenedor de video */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.background-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+/* Animaciones */
+.fade-in {
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
