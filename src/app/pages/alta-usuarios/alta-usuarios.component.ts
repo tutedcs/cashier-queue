@@ -10,11 +10,15 @@ import Swal from 'sweetalert2';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SeccionService } from '../../services/seccion.service';
 import { CajasService } from '../../services/cajas.service';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-alta-usuarios',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, HttpClientModule, NavbarComponent, CommonModule, NgxPaginationModule],
+  imports: [ReactiveFormsModule, FormsModule, 
+  HttpClientModule, NavbarComponent, 
+  CommonModule, NgxPaginationModule,
+  FooterComponent],
   templateUrl: './alta-usuarios.component.html',
   styleUrl: './alta-usuarios.component.css'
 })
