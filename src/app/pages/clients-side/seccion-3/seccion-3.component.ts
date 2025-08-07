@@ -20,6 +20,10 @@ export class Seccion3Component implements OnInit, OnDestroy {
   videoTimeout: any;
   messageTimeout: any;
   
+  // Cola de asignaciones y control de animaciones
+  assignmentQueue: number[] = [];
+  isAnimationRunning: boolean = false;
+  
   constructor(private cajasSv: CajasService, private ws: WebsocketService) {}
   
   ngOnInit(): void {
@@ -39,32 +43,63 @@ export class Seccion3Component implements OnInit, OnDestroy {
         if (seccion === this.seccionLocal) {
           console.log(`🟢 Asignación recibida para ${seccion}: Caja ${nCaja}`);
           
-          // Limpiar timeouts existentes
-          if (this.videoTimeout) clearTimeout(this.videoTimeout);
-          if (this.messageTimeout) clearTimeout(this.messageTimeout);
+          // Agregar asignación a la cola
+          this.assignmentQueue.push(nCaja);
           
-          // Si el video está mostrándose, activar animación de salida
-          if (this.showVideo) {
-            this.videoFadingOut = true;
-            setTimeout(() => {
-              this.showVideo = false;
-              this.videoFadingOut = false;
-              this.mensajeCaja = `${nCaja}`;
-            }, 500); // Tiempo de la animación de fade-out
-          } else {
-            this.mensajeCaja = `${nCaja}`;
+          // Procesar cola si no hay animación corriendo
+          if (!this.isAnimationRunning) {
+            this.processNextAssignment();
           }
-          
-          // Configurar desaparición del mensaje después de 5 segundos
-          this.messageTimeout = setTimeout(() => {
-            this.mensajeCaja = null;
-            
-            // Mostrar video 3 segundos después de que desaparezca el mensaje
-            this.showVideoAfterMessage();
-          }, 5000);
         }
       });
     });
+  }
+
+  // Nuevo método para procesar la siguiente asignación en la cola
+  processNextAssignment(): void {
+    if (this.assignmentQueue.length === 0) {
+      this.isAnimationRunning = false;
+      return;
+    }
+
+    this.isAnimationRunning = true;
+    const nCaja = this.assignmentQueue.shift()!;
+
+    // Limpiar timeouts existentes
+    if (this.videoTimeout) clearTimeout(this.videoTimeout);
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
+    
+    // Si el video está mostrándose, activar animación de salida
+    if (this.showVideo) {
+      this.videoFadingOut = true;
+      setTimeout(() => {
+        this.showVideo = false;
+        this.videoFadingOut = false;
+        this.mensajeCaja = `${nCaja}`;
+        this.scheduleMessageDisappearance();
+      }, 500); // Tiempo de la animación de fade-out
+    } else {
+      this.mensajeCaja = `${nCaja}`;
+      this.scheduleMessageDisappearance();
+    }
+  }
+
+  // Nuevo método para programar la desaparición del mensaje
+  scheduleMessageDisappearance(): void {
+    this.messageTimeout = setTimeout(() => {
+      this.mensajeCaja = null;
+      
+      // Solo mostrar video si no hay más asignaciones en cola
+      if (this.assignmentQueue.length > 0) {
+        // Procesar inmediatamente la siguiente asignación
+        setTimeout(() => {
+          this.processNextAssignment();
+        }, 100);
+      } else {
+        // Mostrar video 3 segundos después de que desaparezca el mensaje
+        this.showVideoAfterMessage();
+      }
+    }, 5000);
   }
 
   // Método para reproducir el video manualmente
@@ -97,10 +132,20 @@ export class Seccion3Component implements OnInit, OnDestroy {
   // Actualizar el método que muestra el video después del mensaje
   showVideoAfterMessage(): void {
     this.videoTimeout = setTimeout(() => {
+      // Verificar nuevamente si hay asignaciones en cola antes de mostrar video
+      if (this.assignmentQueue.length > 0) {
+        this.isAnimationRunning = false;
+        this.processNextAssignment();
+        return;
+      }
+      
       this.showVideo = true;
       // Esperamos a que el DOM se actualice
       setTimeout(() => {
         this.playVideo();
+        // Marcar animación como completada y procesar siguiente
+        this.isAnimationRunning = false;
+        this.processNextAssignment();
       }, 100);
     }, 3000);
   }
@@ -109,5 +154,9 @@ export class Seccion3Component implements OnInit, OnDestroy {
     // Limpiar timeouts para evitar memory leaks
     if (this.videoTimeout) clearTimeout(this.videoTimeout);
     if (this.messageTimeout) clearTimeout(this.messageTimeout);
+    
+    // Limpiar cola de asignaciones
+    this.assignmentQueue = [];
+    this.isAnimationRunning = false;
   }
 }

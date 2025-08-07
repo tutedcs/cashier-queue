@@ -10,7 +10,7 @@ import { SeccionService } from '../services/seccion.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule], // Asegúrate de importar ReactiveFormsModule
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -115,7 +115,7 @@ export class LoginComponent {
                 Swal.fire({
                   icon: 'success',
                   title: `Sección y Caja seleccionadas`,
-                  text: `Sección: ${seccionOptions[selectedSeccionId]}, Caja: ${cajaOptions[selectedCajaId]}`,
+                  text: `${seccionOptions[selectedSeccionId]}, ${cajaOptions[selectedCajaId]}`,
                   timer: 3000,
                   showConfirmButton: false,
                   timerProgressBar: true,

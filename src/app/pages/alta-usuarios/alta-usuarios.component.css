@@ -1,52 +1,74 @@
 .content-container {
   display: flex;
-  justify-content: space-between; /* Espacio entre la tabla y el formulario */
-  align-items: flex-start; /* Alinea ambos elementos al inicio vertical */
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 20px;
-  gap: 20px; /* Espacio entre la tabla y el formulario */
-  height: auto; /* Ajusta la altura automáticamente */
+  gap: 20px;
+  height: auto;
 }
 
-/* Tabla */
 .table-container {
   margin: 3%;
-  flex: 1; /* Ocupa el espacio disponible */
-  max-width: 60%; /* Limita el ancho máximo de la tabla */
-  margin-right: 20px; /* Espacio a la derecha */
+  flex: 1;
+  max-width: 60%;
+  margin-right: 20px;
   display: flex;
-  flex-direction: column; /* Asegura que el contenido interno esté alineado verticalmente */
+  flex-direction: column;
 }
 
-.styled-table {
-  margin-top: 1%;
-  text-align: center;
+.custom-table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid black;
+  background-color: #ffffff; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
 }
 
-.styled-table th,
-.styled-table td {
-  border: 1px solid black;
-  padding: 12px;
-}
-
-.styled-table th {
+.custom-table thead {
   background-color: #ffa733;
 }
 
-/* Formulario */
+.custom-table th {
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+}
+
+.custom-table td {
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.custom-table tbody tr {
+  background-color: #ffffff; 
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(0,0,0,.05); 
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  padding: 6px 12px;
+}
+
 .form-container {
   margin: 5%;
-  flex: 1; /* Ocupa el espacio disponible */
-  max-width: 35%; /* Limita el ancho máximo del formulario */
-  margin-left: 20px; /* Espacio a la izquierda */
+  flex: 1;
+  max-width: 35%;
+  margin-left: 20px;
 }
 
 .form-container form {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Espacio entre los elementos del formulario */
+  gap: 15px;
 }
 
 .form-container input,
