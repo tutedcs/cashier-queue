@@ -1,15 +1,18 @@
 <div class="navbar-container">
     <nav class="navbar">
         <div class="navbar-brand">
-            <b>Sistema de Gestion de Cajas</b>
+            <img src="TurnPoint_icon.svg" alt="Logo" class="navbar-logo">
         </div>
         <div class="navbar-links">
-            <a class="btn nav-link" *ngIf="rolUser" (click)="navigate('/mainmenu')">Menu Principal</a>
-            <!-- <a class="btn nav-link" *ngIf="rolUser===1" (click)="navigate('/panel-control')">Panel de control</a> -->
-            <a class="btn nav-link" *ngIf="rolUser===1" (click)="navigate('/alta-usuarios')">Alta de Usuarios</a>
+            <a class="btn nav-link" *ngIf="rolUser===1" (click)="navigate('/alta-usuarios')">
+                <i class="fa-solid fa-users"></i> Alta de Usuarios
+            </a>
+            <a class="btn nav-link" *ngIf="rolUser===1" (click)="navigate('/logs')">
+                <i class="fa-solid fa-file-alt"></i> Registro de ingresos
+            </a>
             <div class="user-dropdown" *ngIf="userInfo">
                 <button class="btn nav-link dropdown-toggle" (click)="toggleMenu()">
-                    {{ userInfo.nombre }} {{ userInfo.apellido }}
+                   <i class="fa-regular fa-user"></i> {{ userInfo.nombre }} {{ userInfo.apellido }}
                 </button>
                 <div class="dropdown-menu" *ngIf="showMenu">
                     <p><b>Rol:</b> {{ userInfo.rol === 1 ? 'Administrador' : userInfo.rol === 2 ? 'Usuario' : 'Desconocido' }}</p>

@@ -10,15 +10,20 @@ import Swal from 'sweetalert2';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SeccionService } from '../../services/seccion.service';
 import { CajasService } from '../../services/cajas.service';
+import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-alta-usuarios',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, HttpClientModule, NavbarComponent, CommonModule, NgxPaginationModule],
+  imports: [ReactiveFormsModule, FormsModule, 
+  HttpClientModule, NavbarComponent, 
+  CommonModule, NgxPaginationModule,
+  FooterComponent],
   templateUrl: './alta-usuarios.component.html',
   styleUrl: './alta-usuarios.component.css'
 })
 export class AltaUsuariosComponent {
+  idUsuario: number = 0;
   form: FormGroup;
   formSearch: FormGroup;
   usuarios: any[] = [];
@@ -63,6 +68,13 @@ export class AltaUsuariosComponent {
 
     this.getUsuarios();
     this.getSecciones();
+
+    const session =  sessionStorage.getItem('session')
+    if (session) {
+      const sessionData = JSON.parse(session);
+      this.idUsuario = sessionData.idUsuario;
+      console.log('ID de usuario:', this.idUsuario);
+    }
 
     this.form.get('rol')?.valueChanges.subscribe((value) => {
       if (value==='1') {
@@ -316,6 +328,28 @@ export class AltaUsuariosComponent {
       }
     });
 
+  }
+
+  deleteUsuario(idUsuario: number) {
+    Swal.fire({
+      title: "¿Estas seguro de querer eliminar este usuario?",
+      showCancelButton: true,
+      confirmButtonText: "Borrar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const params = idUsuario;
+        this.usuarioSv.desactivarUsuario(params).subscribe({
+          next: () => {
+            this.usuarios = this.usuarios.filter(usuario => usuario.idUsuario!== idUsuario);
+            this.getUsuarios();
+          },
+          error: (error) => {
+            console.error('Error deleting usuario:', error);
+          }
+        });
+        Swal.fire("Eliminado", "", "success");
+      }
+    });
   }
 
 }
