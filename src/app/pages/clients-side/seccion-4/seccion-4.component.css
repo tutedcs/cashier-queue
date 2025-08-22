@@ -34,10 +34,10 @@
 /* Estilo del título */
 .header-title {
     text-align: center;
-    font-size: 5rem; /* Incrementar tamaño */
+    font-size: 5rem;
     font-weight: bold;
-    margin-bottom: 50px; /* Más espacio debajo del título */
-    color: #333;
+    margin-bottom: 50px;
+    color: var(--color-verde);
 }
 
 /* Estilo del mensaje */
@@ -47,25 +47,25 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo negro con transparencia */
-    padding: 60px 80px; /* Incrementar padding */
-    border-radius: 30px; /* Bordes más redondeados */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
-    color: white;
+    background-color: var(--color-verde);
+    padding: 60px 80px;
+    border-radius: 30px;
+    box-shadow: 0 6px 15px rgba(39, 174, 96, 0.25);
+    color: var(--color-blanco);
 }
 
 .mensaje-texto {
-    font-size: 4rem; /* Incrementar tamaño */
+    font-size: 4rem;
     font-weight: bold;
-    color: white;
-    margin-bottom: 30px; /* Más espacio entre texto y número */
+    color: var(--color-blanco);
+    margin-bottom: 30px;
 }
 
 .mensaje-numero {
-    font-size: 30rem; /* Incrementar tamaño del número */
+    font-size: 30rem;
     font-weight: bold;
-    color: rgb(21, 255, 0); /* Color verde brillante */
-    font-family: 'Digital-7', sans-serif; /* Usa una fuente digital si está disponible */
+    color: var(--color-naranja);
+    font-family: 'Digital-7', sans-serif;
 }
 
 /* Estilos para el contenedor de video */

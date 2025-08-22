@@ -1,0 +1,27 @@
+/* Aplicando la nueva paleta de colores */
+
+.login-container {
+	background: var(--color-blanco);
+	border: 1px solid var(--color-verde-claro);
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(39, 174, 96, 0.08);
+	padding: 32px;
+}
+
+.login-title {
+	color: var(--color-verde);
+	font-weight: bold;
+}
+
+.login-btn {
+	background: var(--color-naranja);
+	color: var(--color-blanco);
+	border: none;
+	border-radius: 4px;
+	padding: 10px 20px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.login-btn:hover {
+	background: var(--color-naranja-claro);
+}

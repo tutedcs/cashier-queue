@@ -88,20 +88,20 @@
     margin-bottom: 10px;
     font-size: 18px;
 }
-
-.modal-body p {
-    margin: 5px 0;
-    color: #666;
+    
+/* Botón info armónico con la paleta */
+.info-btn {
+    background: var(--color-verde);
+    color: var(--color-blanco);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
 }
-
-.tech-list {
-    list-style: none;
-    padding: 0;
-}
-
-.tech-list li {
-    padding: 5px 0;
-    border-bottom: 1px solid #eee;
+.info-btn:hover {
+    background: var(--color-verde-claro);
 }
 
 .close-btn {
@@ -119,6 +119,23 @@
 .close-btn:hover {
     background-color: #555;
 }
+
+    /* Botón cerrar armónico con la paleta */
+    .close-btn {
+        background: var(--color-naranja);
+        color: var(--color-blanco);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+        width: 100%;
+        font-size: 16px;
+        transition: background 0.3s ease;
+    }
+    .close-btn:hover {
+        background: var(--color-naranja-claro);
+    }
 
 @media (max-width: 768px) {
     .footer {

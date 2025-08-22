@@ -1,5 +1,47 @@
 body {
-    background-color: rgb(230, 230, 230);
-    overflow-x: hidden; 
+    background: var(--color-gris-claro);
+    color: var(--color-gris-oscuro);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    overflow-x: hidden;
+}
 
+/* Paleta de colores estandarizada */
+:root {
+    --color-verde: #27ae60;
+    --color-verde-claro: #2ecc71;
+    --color-naranja: #f39c12;
+    --color-naranja-claro: #f7b731;
+    --color-gris-oscuro: #2d3436;
+    --color-gris-claro: #f5f6fa;
+    --color-blanco: #ffffff;
+}
+
+/* Botones principales */
+.button-verde {
+    background: var(--color-verde);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+.button-naranja {
+    background: var(--color-naranja);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+/* Otros elementos */
+.card {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-verde-claro);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.08);
+}
+
+.header, .footer {
+    background: var(--color-naranja-claro);
+    color: var(--color-gris-oscuro);
 }

@@ -1,4 +1,34 @@
 
+/* Paleta visual para el menú principal */
+.mainmenu-container {
+    background: var(--color-blanco);
+    border: 1px solid var(--color-verde-claro);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.08);
+    padding: 32px;
+}
+
+.mainmenu-title {
+    color: var(--color-verde);
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+}
+
+.mainmenu-btn {
+    background: var(--color-naranja);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.mainmenu-btn:hover {
+    background: var(--color-naranja-claro);
+}
+
 .parent {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
