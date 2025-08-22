@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Environment } from '../../env/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +14,8 @@ export class UsuariosService {
     constructor(private http: HttpClient) { }
 
 
-    getUsuarios(idSeccion?: number, admin: boolean = true): Observable<any> {
-        let params = new HttpParams();
-        if (idSeccion !== undefined && idSeccion !== null) {
-            params = params.set('idSeccion', idSeccion.toString());
-        }
-        params = params.set('admin', admin ? 'true' : 'false');
+    getUsuarios(idSeccion?: number): Observable<any> {
+        const params = idSeccion ? new HttpParams().set('idSeccion', idSeccion.toString()) : undefined;
         return this.http.get(this.API_URL + 'Listar', { params });
     }
 
@@ -39,8 +36,10 @@ export class UsuariosService {
     }
     
     desactivarUsuario(idUsuario: number): Observable<any> {
-        return this.http.delete(this.API_URL + 'DeleteUser/' + idUsuario);
+        return this.http.put(this.API_URL + 'Desactivar/' + idUsuario, {});
     }
 
-
+    activarUsuario(idUsuario: number): Observable<any> {
+        return this.http.put(this.API_URL + 'Activar/' + idUsuario, {});
+    }
 }

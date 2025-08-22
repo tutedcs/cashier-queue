@@ -6,12 +6,11 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { WebsocketService } from '../../services/websocket.service';
 import { timeout } from 'rxjs';
-import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({
   selector: 'app-mainmenu',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent],
+  imports: [NavbarComponent, CommonModule],
   templateUrl: './mainmenu.component.html',
   styleUrl: './mainmenu.component.css'
 })

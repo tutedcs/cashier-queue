@@ -10,7 +10,7 @@ import { SeccionService } from '../services/seccion.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule], // Asegúrate de importar ReactiveFormsModule
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -115,7 +115,7 @@ export class LoginComponent {
                 Swal.fire({
                   icon: 'success',
                   title: `Sección y Caja seleccionadas`,
-                  text: `${seccionOptions[selectedSeccionId]}, ${cajaOptions[selectedCajaId]}`,
+                  text: `Sección: ${seccionOptions[selectedSeccionId]}, Caja: ${cajaOptions[selectedCajaId]}`,
                   timer: 3000,
                   showConfirmButton: false,
                   timerProgressBar: true,
@@ -199,7 +199,7 @@ export class LoginComponent {
                 if (dataLogin.code == 'LOGIN_SUCCESS') {
                   console.log('dataLogin:', dataLogin);
                   this.saveSessionStorage(dataLogin, 1);
-                  this.router.navigate(['/alta-usuarios']);
+                  this.router.navigate(['/mainmenu']);
                 } else {
                   Swal.fire({
                     icon: 'error',

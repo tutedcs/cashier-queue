@@ -111,7 +111,6 @@ cashier-queue/
 ```
 
 ## Instalación
-### DETALLE IMPORTANTE: esta aplicación depende de un backend para manejar usuarios, el total de cajas y la actualización de la disponibilidad. Dicho backend es privado de momento
 
 ### Requisitos:
 
@@ -182,6 +181,19 @@ body {
 }
 ```
 
+### Modificación del número de cajas:
+
+Para cambiar el número de cajas disponibles, edita el archivo `src/app/pages/panel-control/panel-control.component.ts` y actualiza el array `cajeros`:
+
+```typescript
+// En panel-control.component.ts
+cajeros: any[] = [
+  { idCaja: 1, idCajero: 1, disponibilidad: true },
+  { idCaja: 2, idCajero: 2, disponibilidad: false },
+  // Añade más cajas según sea necesario
+];
+```
+
 ## Solución de Problemas
 
 ### Los cambios de estado no se reflejan en la pantalla
@@ -203,5 +215,5 @@ Si experimentas problemas de visualización en dispositivos móviles, verifica q
 ---
 
 <p align="center">
-  © 2025 DouDev SA - Desarrollado para proporcionar una gestión eficiente de cajas y mejorar la experiencia del cliente en establecimientos comerciales.
+  © 2025 Tu Empresa - Desarrollado para proporcionar una gestión eficiente de cajas y mejorar la experiencia del cliente en establecimientos comerciales.
 </p>

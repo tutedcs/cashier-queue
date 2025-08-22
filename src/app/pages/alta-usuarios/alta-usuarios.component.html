@@ -2,25 +2,24 @@
     <div class="row">
         <app-navbar></app-navbar>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-4">
         <div class="content-container">
             <!-- Tabla de usuarios -->
             <div class="table-container">
-                <h6 class="mb-3">Usuarios registrados</h6>
+                <h6>Usuarios registrados</h6>
                 <div class="caption-container">
                     <div class="row mt-2 mb-2">
-                        <div class="col-4">
-                            <div class="d-flex align-items-center">
-                                <span class="me-2">Filas por página:</span>
-                                <select class="form-select form-select-sm" style="width: auto;" [(ngModel)]="itemsPerPage">
-                                    <option [value]="5">5</option>
-                                    <option [value]="10">10</option>
-                                    <option [value]="15">15</option>
-                                    <option [value]="20">20</option>
-                                </select>
-                            </div>
+                        <div class="col-3">
+                            <h6 class="text-center">Filas por página:</h6>
+                            <select class="form-select small-select" [(ngModel)]="itemsPerPage">
+                                <option [value]="5">5</option>
+                                <option [value]="10">10</option>
+                                <option [value]="15">15</option>
+                                <option [value]="20">20</option>
+                            </select>
                         </div>
-                        <div class="col-8">
+                        <div class="col-3"></div>
+                        <div class="col-6">
                             <pagination-controls
                                 *ngIf="usuarios.length > itemsPerPage"
                                 (pageChange)="currentPageTotal = $event"
@@ -32,27 +31,24 @@
                         </div>
                     </div>                
                 </div>
-                <table class="custom-table">
+                <table class="styled-table">
                     <thead>
                         <tr>
-                            <th>Apellido</th>
-                            <th>Nombre</th>
-                            <th>N° Legajo / Usuario</th>
-                            <th>Rol</th>
-                            <th>Acción</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">N° Legajo / Usuario</th>
+                            <!-- <th scope="col">Caja</th>
+                            <th scope="col">Sección</th> -->
+                            <th scope="col">Rol</th>
+                            <!-- <th scope="col">Acción</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPageTotal }">
-                            <td>{{ usuario.apellido }}</td>
-                            <td>{{ usuario.nombre }}</td>
-                            <td>{{ usuario.usuario }}</td>
+                            <td><b>{{ usuario.apellido }}</b></td>
+                            <td><b>{{ usuario.nombre }}</b></td>
+                            <td><b>{{ usuario.usuario }}</b></td>
                             <td><b>{{ usuario.rol === 1 ? 'ADMINISTRADOR' : usuario.rol === 2 ? 'USUARIO' : '' }}</b></td>
-                            <td>
-                                <button *ngIf="usuario.idUsuario!==this.idUsuario" class="btn-delete" (click)="deleteUsuario(usuario.idUsuario)">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -113,8 +109,5 @@
                 </form>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <app-footer></app-footer>
     </div>
 </div>
